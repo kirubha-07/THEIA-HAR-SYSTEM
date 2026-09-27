@@ -1,0 +1,4 @@
+timestamp,label,hostname,platform,processor,duration_seconds,frame_count,avg_fps,min_fps,max_fps,median_fps,p10_fps
+2026-09-27T12:42:22.588377,test,LordEREN0314,Windows-10-10.0.26200-SP0,"Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",5.69,40,18.32,0.34,23.4,18.71,16.92
+2026-09-27T12:43:18.967312,test_latency,LordEREN0314,Windows-10-10.0.26200-SP0,"Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",12.59,167,20.32,0.54,23.33,20.67,18.59,0.1,0.1
+2026-09-27T13:04:44.966379,latency_retest,LordEREN0314,Windows-10-10.0.26200-SP0,"Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",8.61,75,18.84,0.47,22.84,19.03,16.58,1.6,1.6

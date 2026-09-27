@@ -1,0 +1,6 @@
+{"event": "SESSION_START", "timestamp": "2026-09-14T15:01:51.312652", "session_id": "20260914_150151", "experiment_name": "ISRO Sample Experiment"}
+{"event": "GRASP", "timestamp": "2026-09-14T15:07:18.872389", "hand_index": 0, "object_class": "cell phone", "confidence": 0.7574731707572937, "pinch_center": [0.6300484240055084, 0.6046241223812103], "frame_count": 8}
+{"event": "STEP_RESULT", "timestamp": "2026-09-14T15:07:18.872389", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.7574731707572937, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "RELEASE", "timestamp": "2026-09-14T15:07:19.865376", "hand_index": 0, "object_class": "cell phone"}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-14T15:07:23.899858", "status": "TIMED_OUT", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 5.0}
+{"event": "SESSION_END", "timestamp": "2026-09-14T15:09:33.149509", "duration_seconds": 461.839}

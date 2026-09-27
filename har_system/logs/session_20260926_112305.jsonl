@@ -1,0 +1,2 @@
+{"event": "SESSION_START", "timestamp": "2026-09-26T11:23:05.529516", "session_id": "20260926_112305", "experiment_name": "ISRO Sample Experiment"}
+{"event": "SESSION_END", "timestamp": "2026-09-26T11:23:06.187141", "duration_seconds": 0.658}

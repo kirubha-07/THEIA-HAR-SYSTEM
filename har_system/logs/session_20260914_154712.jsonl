@@ -1,0 +1,19 @@
+{"event": "SESSION_START", "timestamp": "2026-09-14T15:47:12.137546", "session_id": "20260914_154712", "experiment_name": "ISRO Sample Experiment"}
+{"event": "GRASP", "timestamp": "2026-09-14T15:48:03.114737", "hand_index": 0, "object_class": "bottle", "confidence": 0.7933633923530579, "pinch_center": [0.14224426448345184, 0.3190596103668213], "frame_count": 8, "grip_type": "pinch"}
+{"event": "STEP_RESULT", "timestamp": "2026-09-14T15:48:03.114737", "step_id": 1, "step_name": "Grasp bottle", "object_class": "bottle", "confidence": 0.7933633923530579, "status": "STEP_COMPLETE", "message": "Step 1 complete. Bottle secured."}
+{"event": "RELEASE", "timestamp": "2026-09-14T15:48:05.237148", "hand_index": 0, "object_class": "bottle"}
+{"event": "GRASP", "timestamp": "2026-09-14T16:02:43.811634", "hand_index": 0, "object_class": "cell phone", "confidence": 0.5163193941116333, "pinch_center": [0.5155780166387558, 0.8318407833576202], "frame_count": 8, "grip_type": "pinch"}
+{"event": "STEP_RESULT", "timestamp": "2026-09-14T16:02:43.811634", "step_id": 2, "step_name": "Grasp remote", "object_class": "cell phone", "confidence": 0.5163193941116333, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'remote'"}
+{"event": "RELEASE", "timestamp": "2026-09-14T16:02:44.030034", "hand_index": 0, "object_class": "cell phone"}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-14T16:02:48.882281", "status": "TIMED_OUT", "fsm_event_type": "SKIP_DETECTED", "step_id": 2, "object_class": "cell phone", "elapsed_seconds": 5.063}
+{"event": "GRASP", "timestamp": "2026-09-14T16:07:05.142728", "hand_index": 0, "object_class": "cell phone", "confidence": 0.5281463265419006, "pinch_center": [0.4312634766101837, 0.5719356536865234], "frame_count": 8, "grip_type": "pinch"}
+{"event": "STEP_RESULT", "timestamp": "2026-09-14T16:07:05.143850", "step_id": 2, "step_name": "Grasp remote", "object_class": "cell phone", "confidence": 0.5281463265419006, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'remote'"}
+{"event": "RELEASE", "timestamp": "2026-09-14T16:07:05.329920", "hand_index": 0, "object_class": "cell phone"}
+{"event": "GRASP", "timestamp": "2026-09-14T16:07:07.400830", "hand_index": 0, "object_class": "cell phone", "confidence": 0.5645338296890259, "pinch_center": [0.43085572123527527, 0.5787480473518372], "frame_count": 8, "grip_type": "pinch"}
+{"event": "STEP_RESULT", "timestamp": "2026-09-14T16:07:07.400830", "step_id": 2, "step_name": "Grasp remote", "object_class": "cell phone", "confidence": 0.5645338296890259, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'remote'"}
+{"event": "RELEASE", "timestamp": "2026-09-14T16:07:08.338654", "hand_index": 0, "object_class": "cell phone"}
+{"event": "GRASP", "timestamp": "2026-09-14T16:07:11.139718", "hand_index": 0, "object_class": "cell phone", "confidence": 0.5096428990364075, "pinch_center": [0.42806704342365265, 0.5804873406887054], "frame_count": 8, "grip_type": "pinch"}
+{"event": "STEP_RESULT", "timestamp": "2026-09-14T16:07:11.142353", "step_id": 2, "step_name": "Grasp remote", "object_class": "cell phone", "confidence": 0.5096428990364075, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'remote'"}
+{"event": "RELEASE", "timestamp": "2026-09-14T16:07:11.322673", "hand_index": 0, "object_class": "cell phone"}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-14T16:07:16.152984", "status": "TIMED_OUT", "fsm_event_type": "SKIP_DETECTED", "step_id": 2, "object_class": "cell phone", "elapsed_seconds": 5.015}
+{"event": "SESSION_END", "timestamp": "2026-09-14T16:25:07.035028", "duration_seconds": 2274.898}

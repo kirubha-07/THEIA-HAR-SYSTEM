@@ -1,0 +1,30 @@
+experiment:
+  name: "ISRO Sample Experiment"
+  description: "Red-Yellow Box Extraction Sequence"
+  steps:
+    - id: 1
+      name: "Grasp bottle"
+      description: "Pick up the water bottle from the rack"
+      trigger:
+        action: grasp
+        object: bottle
+      success_message: "Step 1 complete. Bottle secured."
+      next_hint: "Hint: Grasp the water bottle"
+
+    - id: 2
+      name: "Grasp remote"
+      description: "Pick up the physical remote (detects as cell phone due to sim-to-real gap)"
+      trigger:
+        action: grasp
+        object: cell phone
+      success_message: "Step 2 complete. Remote secured."
+      next_hint: "Hint: Grasp the remote control"
+
+    - id: 3
+      name: "Grasp cell phone"
+      description: "Pick up the physical cell phone"
+      trigger:
+        action: grasp
+        object: cell phone
+      success_message: "Step 3 complete. Experiment sequence validated."
+      next_hint: "Hint: Experiment complete"

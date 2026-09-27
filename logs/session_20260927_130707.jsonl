@@ -1,0 +1,5 @@
+{"event": "SESSION_START", "timestamp": "2026-09-27T13:07:07.633161", "session_id": "20260927_130707", "experiment_name": "ISRO Sample Experiment"}
+{"event": "GRASP", "timestamp": "2026-09-27T13:07:49.467732", "hand_index": 0, "object_class": "bottle", "confidence": 0.6715274453163147, "pinch_center": [0.14912527054548264, 0.3163982778787613], "frame_count": 8, "grip_type": "pinch"}
+{"event": "CALIBRATION_UPDATED", "timestamp": "2026-09-27T13:07:49.467732", "status": "calibrating", "ema_pinch": 0.039465290069623474, "ema_confidence": 0.6715274453163147, "grasp_count": 1}
+{"event": "STEP_RESULT", "timestamp": "2026-09-27T13:07:49.485415", "step_id": 1, "step_name": "Grasp bottle", "object_class": "bottle", "confidence": 0.6715274453163147, "status": "STEP_COMPLETE", "message": "Step 1 complete. Bottle secured."}
+{"event": "SESSION_END", "timestamp": "2026-09-27T13:07:50.452088", "duration_seconds": 42.822}
