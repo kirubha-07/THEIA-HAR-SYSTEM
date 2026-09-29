@@ -96,6 +96,8 @@ class PipelineWorker(QThread):
     # vitals_updated: driven by Phase 3 health_monitor at ~1Hz
     vitals_updated = Signal(dict)
     summary_exported = Signal(str)
+    uplink_updated = Signal(dict)
+    system_telemetry_updated = Signal(dict)
 
     # ── Placeholder CUSUM tuning constants (Phase 1) ────────────────────
     CUSUM_TARGET = 0.3
@@ -293,20 +295,29 @@ class PipelineWorker(QThread):
                     break
 
                 # ── 2. Archive raw frame ────────────────────────────────
-                # disabled for replay benchmark speed
-                # self.camera.write(frame)
+                self.camera.write(frame)
 
                 frame_count += 1
-                
-                # Fast forward to minute 14 (16800 frames @ 20fps) to save time,
-                # but process Step 1 (first 2000 frames) so FSM passes Step 1!
-                if 2000 < frame_count < 16800:
-                    continue
+                if frame_count == 1:
+                    print(f"[worker DEBUG] Frame #1 captured successfully: shape={frame.shape}")
 
                 if frame_count % 20 == 0:
                     vitals = self.health_monitor.read_vitals()
                     self.vitals_updated.emit(vitals)
                     self.logger.log_health_reading(vitals)
+
+                    # Broadcast real-time ground uplink status
+                    self.uplink_updated.emit(self.uplink_queue.get_status())
+
+                    # Broadcast session storage telemetry
+                    rec_path = getattr(self.camera, "_recording_path", None)
+                    rec_size = os.path.getsize(rec_path) if (rec_path and os.path.exists(rec_path)) else 0
+                    self.system_telemetry_updated.emit({
+                        "recording_path": rec_path,
+                        "recording_bytes": rec_size,
+                        "frame_count": frame_count,
+                        "log_path": self.logger.filepath,
+                    })
 
                 # ── 3. YOLO inference (every 2nd frame for FPS) ─────────
                 if frame_count % 2 == 0:
@@ -314,6 +325,8 @@ class PipelineWorker(QThread):
                     cached_detections = detections
                 else:
                     detections = cached_detections
+
+
 
                 # ── 4. Hand tracking ────────────────────────────────────
                 hand_result = self.hand_tracker.process(frame)
@@ -421,6 +434,7 @@ class PipelineWorker(QThread):
                             payload={"type": "FSM_EVENT", "event": ev.type.name, "step": getattr(ev, 'step_id', None)},
                             severity=severity_map.get(level, 0.0)
                         )
+                        self.uplink_updated.emit(self.uplink_queue.get_status())
                         self.escalation_changed.emit(level)
 
                         if ev.type == FSMEventType.STEP_COMPLETE:
@@ -531,10 +545,10 @@ class PipelineWorker(QThread):
                         )
 
                 # ── 8. Draw YOLO annotations ────────────────────────────
-                annotated = frame # self.detector.draw(frame, detections)
+                annotated = self.detector.draw(frame, detections)
 
                 # ── 9. Draw hand landmarks ──────────────────────────────
-                # annotated = self.hand_tracker.draw(annotated, hand_result)
+                annotated = self.hand_tracker.draw(annotated, hand_result)
 
                 # ── 10. Compute FPS ─────────────────────────────────────
                 curr_time = time.perf_counter()
@@ -602,10 +616,12 @@ class PipelineWorker(QThread):
                 )
 
                 # ── 12. Push to streaming server ────────────────────────
-                # self._shared_state.update_frame(annotated)
+                self._shared_state.update_frame(annotated)
 
                 # ── 13. Emit frame for GUI ──────────────────────────────
-                # self.frame_ready.emit(annotated)
+                if frame_count == 1:
+                    print(f"[worker DEBUG] Emitting first frame_ready signal (shape={annotated.shape})...")
+                self.frame_ready.emit(annotated)
 
         except Exception as exc:
             self.error_occurred.emit(str(exc))

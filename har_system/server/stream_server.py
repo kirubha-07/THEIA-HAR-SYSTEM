@@ -118,7 +118,22 @@ class StreamServer:
             title="HAR System — MJPEG Stream",
             description="ISRO SIH 2026 — Human Activity Recognition stream",
         )
+        self._client_lock = threading.Lock()
+        self._active_clients = 0
         self._register_routes()
+
+    def get_client_count(self) -> int:
+        """Return the current number of active streaming/websocket clients."""
+        with self._client_lock:
+            return self._active_clients
+
+    def _inc_client(self) -> None:
+        with self._client_lock:
+            self._active_clients += 1
+
+    def _dec_client(self) -> None:
+        with self._client_lock:
+            self._active_clients = max(0, self._active_clients - 1)
 
     # ------------------------------------------------------------------
     # Route registration
@@ -160,6 +175,7 @@ class StreamServer:
         async def websocket_state(ws: WebSocket) -> None:
             """WebSocket that pushes FSM state JSON every ~0.1 s."""
             await ws.accept()
+            self._inc_client()
             try:
                 while True:
                     data = self.shared_state.get_fsm_state()
@@ -171,6 +187,8 @@ class StreamServer:
             except Exception:
                 # Guard against unexpected errors so the server stays up.
                 pass
+            finally:
+                self._dec_client()
 
     # ------------------------------------------------------------------
     # MJPEG generator
@@ -182,18 +200,22 @@ class StreamServer:
         Runs at up to ~30 Hz.  If no frame is available yet the
         generator sleeps 0.1 s and retries.
         """
-        while True:
-            frame_bytes = self.shared_state.get_frame()
-            if frame_bytes is None:
-                time.sleep(0.1)
-                continue
-            yield (
-                b"--frame\r\n"
-                b"Content-Type: image/jpeg\r\n\r\n"
-                + frame_bytes
-                + b"\r\n"
-            )
-            time.sleep(0.033)  # ≈30 Hz ceiling
+        self._inc_client()
+        try:
+            while True:
+                frame_bytes = self.shared_state.get_frame()
+                if frame_bytes is None:
+                    time.sleep(0.1)
+                    continue
+                yield (
+                    b"--frame\r\n"
+                    b"Content-Type: image/jpeg\r\n\r\n"
+                    + frame_bytes
+                    + b"\r\n"
+                )
+                time.sleep(0.033)  # ≈30 Hz ceiling
+        finally:
+            self._dec_client()
 
     # ------------------------------------------------------------------
     # Thread management

@@ -35,12 +35,29 @@ class CameraCapture:
         fps : int
             Target frames-per-second for both capture and archival.
         """
-        self._cap = cv2.VideoCapture(cam_index)
+        import sys
 
-        if not self._cap.isOpened():
+        # Convert cam_index if passed as numeric string
+        actual_index = cam_index
+        if isinstance(cam_index, str) and cam_index.isdigit():
+            actual_index = int(cam_index)
+
+        if isinstance(actual_index, int) and sys.platform.startswith("win"):
+            print(f"[CameraCapture] Initializing VideoCapture index={actual_index} with cv2.CAP_DSHOW backend...")
+            self._cap = cv2.VideoCapture(actual_index, cv2.CAP_DSHOW)
+            if not self._cap.isOpened():
+                print(f"[CameraCapture] CAP_DSHOW not opened, falling back to default backend for index {actual_index}...")
+                self._cap = cv2.VideoCapture(actual_index)
+        else:
+            print(f"[CameraCapture] Initializing VideoCapture index={actual_index} with default backend...")
+            self._cap = cv2.VideoCapture(actual_index)
+
+        is_opened = self._cap.isOpened()
+        print(f"[CameraCapture] VideoCapture.isOpened() = {is_opened}")
+        if not is_opened:
             raise RuntimeError(
-                f"Cannot open camera at index {cam_index}. "
-                "Check device connection and permissions."
+                f"Cannot open camera at index {actual_index}. "
+                "Check device connection, permissions, or camera-index conflict."
             )
 
         self._cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
@@ -85,12 +102,20 @@ class CameraCapture:
         )
 
         if not self._writer.isOpened():
-            raise RuntimeError(
-                f"VideoWriter failed to open for {self._recording_path}. "
-                "Ensure XVID codec is available on this system."
+            print(f"[CameraCapture] XVID VideoWriter failed, trying MJPG for {self._recording_path}...")
+            fourcc = cv2.VideoWriter_fourcc(*"MJPG")
+            self._writer = cv2.VideoWriter(
+                self._recording_path,
+                fourcc,
+                self._fps,
+                (self._width, self._height),
             )
 
-        print(f"[CameraCapture] Recording → {self._recording_path}")
+        if not self._writer.isOpened():
+            print(f"[CameraCapture] Warning: VideoWriter could not be opened. Recording disabled.")
+            self._writer = None
+        else:
+            print(f"[CameraCapture] Recording -> {self._recording_path}")
         return self._recording_path
 
     def read(self) -> tuple[bool, "cv2.typing.MatLike | None"]:
@@ -123,7 +148,7 @@ class CameraCapture:
         if self._writer is not None:
             self._writer.release()
             self._writer = None
-            print(f"[CameraCapture] Recording saved → {self._recording_path}")
+            print(f"[CameraCapture] Recording saved -> {self._recording_path}")
 
         if self._cap is not None:
             self._cap.release()
