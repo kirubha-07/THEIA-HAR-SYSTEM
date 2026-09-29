@@ -45,76 +45,39 @@ STREAM_PORT = 8000
 
 # ── Dark theme stylesheet ──────────────────────────────────────────────
 DARK_STYLESHEET = """
-QMainWindow, QWidget {
-    background-color: #1a1a1a;
-    color: #e0e0e0;
+QMainWindow {
+    background-color: #0b0d14;
+    color: #f1f5f9;
 }
 
-QLabel {
-    color: #e0e0e0;
-}
-
-QListWidget, QTreeWidget {
-    background-color: #1e1e1e;
-    color: #ccc;
-    border: 1px solid #333;
+QToolTip {
+    background-color: #171c2b;
+    color: #f1f5f9;
+    border: 1px solid #252d43;
+    padding: 4px;
     border-radius: 4px;
 }
 
-QListWidget::item:selected, QTreeWidget::item:selected {
-    background-color: #333;
-}
-
-QScrollArea {
-    background-color: #1a1a1a;
-    border: none;
-}
-
-QScrollArea > QWidget > QWidget {
-    background-color: #1a1a1a;
-}
-
-QSplitter::handle {
-    background-color: #333;
-    width: 2px;
-}
-
 QMessageBox {
-    background-color: #1a1a1a;
-    color: #e0e0e0;
+    background-color: #171c2b;
+    color: #f1f5f9;
 }
 
 QMessageBox QLabel {
-    color: #e0e0e0;
+    color: #f1f5f9;
 }
 
 QMessageBox QPushButton {
-    background-color: #333;
-    color: #e0e0e0;
-    border: 1px solid #555;
+    background-color: #202637;
+    color: #f1f5f9;
+    border: 1px solid #252d43;
     border-radius: 4px;
     padding: 6px 16px;
     min-width: 80px;
 }
 
 QMessageBox QPushButton:hover {
-    background-color: #444;
-}
-
-QScrollBar:vertical {
-    background: #1a1a1a;
-    width: 10px;
-    border-radius: 5px;
-}
-
-QScrollBar::handle:vertical {
-    background: #444;
-    border-radius: 5px;
-    min-height: 20px;
-}
-
-QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
-    height: 0px;
+    background-color: #2e374d;
 }
 """
 
@@ -151,8 +114,8 @@ def main() -> None:
     local_ip = _get_local_ip()
     stream_url = f"http://{local_ip}:{STREAM_PORT}/stream"
     ws_url = f"ws://{local_ip}:{STREAM_PORT}/ws"
-    print(f"[server] MJPEG stream → {stream_url}")
-    print(f"[server] WebSocket state → {ws_url}")
+    print(f"[server] MJPEG stream -> {stream_url}")
+    print(f"[server] WebSocket state -> {ws_url}")
 
     # ── 4. Build config path ────────────────────────────────────────────
     config_path = os.path.join(
@@ -166,27 +129,12 @@ def main() -> None:
         min_conf=MIN_DETECTION_CONF,
     )
 
-    # ── 6. Create MainWindow ────────────────────────────────────────────
+    # ── 6. Create MainWindow & connect worker ───────────────────────────
     window = MainWindow(
         stream_url=stream_url,
         total_steps=worker.fsm.total_steps,
     )
     window.set_worker(worker)
-
-    # ── 7. Connect worker signals → window slots ────────────────────────
-    worker.frame_ready.connect(window.update_video_frame)
-    worker.fsm_event.connect(window.handle_fsm_event)
-    worker.grasp_detected.connect(window.handle_grasp)
-    worker.release_detected.connect(window.handle_release)
-    worker.experiment_complete.connect(window.handle_experiment_complete)
-    worker.error_occurred.connect(window.handle_error)
-
-    # ── Phase 1 GUI-rebuild signals ───────────────────────────────────────
-    worker.calibration_state_changed.connect(window.update_calibration_state)
-    worker.escalation_changed.connect(window.update_escalation_level)
-    worker.passive_monitor_updated.connect(window.update_cusum)
-    # Inert until Phase 4 (Intent Prediction) exists and actually emits it.
-    worker.intent_predicted.connect(window.handle_intent_predicted)
 
     # ── 8. Sync initial GUI state from FSM config ─────────────────────────
     window.sync_initial_state(
