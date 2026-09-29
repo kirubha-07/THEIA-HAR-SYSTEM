@@ -1,0 +1,9 @@
+{"event": "SESSION_START", "timestamp": "2026-09-28T00:52:14.463290", "session_id": "20260928_005214", "experiment_name": "ISRO Sample Experiment"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T00:52:17.880028", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T00:52:18.877914", "heart_rate": 72, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T00:52:19.879979", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T00:52:21.016364", "heart_rate": 71, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T00:52:22.009614", "heart_rate": 72, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T00:52:23.009303", "heart_rate": 71, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T00:52:24.008104", "heart_rate": 71, "status": "Resting", "is_simulated": true}
+{"event": "SESSION_END", "timestamp": "2026-09-28T00:52:25.011196", "duration_seconds": 10.549}

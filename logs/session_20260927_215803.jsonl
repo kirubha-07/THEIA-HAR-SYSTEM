@@ -1,0 +1,111 @@
+{"event": "SESSION_START", "timestamp": "2026-09-27T21:58:03.930187", "session_id": "20260927_215803", "experiment_name": "ISRO Sample Experiment"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:14.544807", "heart_rate": 71, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:15.224849", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:15.880882", "heart_rate": 71, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:16.547058", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:17.221663", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:17.889358", "heart_rate": 72, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:18.536188", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:19.228655", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:19.880080", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:20.568028", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "TEST_ALERT_TRIGGERED", "timestamp": "2026-09-27T21:58:20.806652"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:21.238882", "heart_rate": 72, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:21.907178", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HAPTIC_FIRED", "timestamp": "2026-09-27T21:58:22.037515", "reason": "test_alert"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:22.673570", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:23.419017", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:24.105387", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "OVERRIDE_ACKNOWLEDGED", "timestamp": "2026-09-27T21:58:24.153183", "dismissed_event": null}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:24.769957", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:25.437163", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:26.178308", "heart_rate": 79, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:26.854272", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:27.510545", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:28.193614", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:28.873688", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:29.542888", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:30.211616", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:30.876351", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:31.537958", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:32.186192", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:32.846806", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:33.503326", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:34.193708", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:34.871748", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:35.567644", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:36.479732", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:37.445946", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:38.389879", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:39.377502", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:40.345979", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:41.318780", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:42.244575", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:43.196117", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:44.097756", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:45.028848", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:45.899812", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:46.776418", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:47.668678", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:48.569697", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:49.390152", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:50.123554", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:50.840103", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:51.612046", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:52.335201", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:53.140296", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "INTENT_PREDICTED", "timestamp": "2026-09-27T21:58:53.565299", "hand_index": 0, "object_class": "cell phone", "confidence": 0.334, "streak_frames": 5}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:54.065187", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "GRASP", "timestamp": "2026-09-27T21:58:54.146647", "hand_index": 0, "object_class": "cell phone", "confidence": 0.6069802641868591, "pinch_center": [0.38281163573265076, 0.7049805819988251], "frame_count": 8, "grip_type": "pinch"}
+{"event": "CALIBRATION_UPDATED", "timestamp": "2026-09-27T21:58:54.159239", "status": "calibrating", "ema_pinch": 0.03184498879502929, "ema_confidence": 0.6069802641868591, "grasp_count": 1}
+{"event": "STEP_RESULT", "timestamp": "2026-09-27T21:58:54.161847", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.6069802641868591, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "RELEASE", "timestamp": "2026-09-27T21:58:54.240141", "hand_index": 0, "object_class": "cell phone"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:55.029493", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:55.956019", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:56.911492", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:57.710391", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:58.466628", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-27T21:58:59.159204", "status": "TIMED_OUT", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 5.0}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:59.180606", "heart_rate": 81, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:58:59.902080", "heart_rate": 83, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:00.584288", "heart_rate": 84, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:01.325025", "heart_rate": 86, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:02.099215", "heart_rate": 84, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:03.044816", "heart_rate": 82, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:03.975993", "heart_rate": 84, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:04.927095", "heart_rate": 83, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:05.666657", "heart_rate": 84, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:06.362207", "heart_rate": 85, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:07.093629", "heart_rate": 84, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:07.782465", "heart_rate": 82, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:08.634658", "heart_rate": 82, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:09.405932", "heart_rate": 83, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:10.158643", "heart_rate": 85, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:10.837196", "heart_rate": 86, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:11.563832", "heart_rate": 87, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:12.315401", "heart_rate": 86, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:13.032803", "heart_rate": 84, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:13.772082", "heart_rate": 83, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:14.477501", "heart_rate": 81, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:15.196157", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:15.948137", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:16.669491", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:17.412993", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:18.097854", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:18.789155", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:19.530130", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:20.202507", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:20.985601", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:21.711744", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:22.463260", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:23.231748", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:23.935486", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:24.647992", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:25.560532", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:26.729108", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:27.898223", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:29.032647", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:30.184233", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:31.367390", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-27T21:59:32.536745", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "SESSION_END", "timestamp": "2026-09-27T21:59:45.338777", "duration_seconds": 101.409}

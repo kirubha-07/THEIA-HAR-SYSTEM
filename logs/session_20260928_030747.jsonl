@@ -1,0 +1,330 @@
+{"event": "SESSION_START", "timestamp": "2026-09-28T03:07:47.988528", "session_id": "20260928_030747", "experiment_name": "ISRO Sample Experiment"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:07:52.604882", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:07:53.597055", "heart_rate": 72, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:07:54.589104", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:07:55.649853", "heart_rate": 72, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:07:56.637443", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:07:57.628343", "heart_rate": 69, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:07:58.620692", "heart_rate": 69, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:07:59.612492", "heart_rate": 69, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:00.621809", "heart_rate": 68, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:01.612933", "heart_rate": 69, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:02.604914", "heart_rate": 69, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:03.597527", "heart_rate": 69, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:04.450257", "heart_rate": 67, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:05.315247", "heart_rate": 69, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:06.014843", "heart_rate": 68, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:06.829335", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:07.590587", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:09.355326", "heart_rate": 68, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:11.227211", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:12.749067", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:13.925711", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:15.004478", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:16.110075", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:17.121598", "heart_rate": 71, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:17.993976", "heart_rate": 71, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:18.928182", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:19.935566", "heart_rate": 71, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:21.095906", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:22.200042", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:23.086508", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:23.984672", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:24.829642", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:25.660426", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:26.473079", "heart_rate": 71, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:27.297320", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:28.109551", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:28.941246", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:29.757481", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:30.573198", "heart_rate": 72, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:31.389136", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:32.207522", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:33.021580", "heart_rate": 71, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:33.833975", "heart_rate": 71, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:34.653916", "heart_rate": 72, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:35.469196", "heart_rate": 72, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:36.283578", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:37.119929", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:37.981762", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:38.844740", "heart_rate": 71, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:39.684473", "heart_rate": 71, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:40.546390", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:41.381483", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:42.288906", "heart_rate": 68, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:43.096036", "heart_rate": 69, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:43.964187", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:44.799028", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:45.660171", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:46.477066", "heart_rate": 69, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:47.438220", "heart_rate": 69, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:48.560059", "heart_rate": 69, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:49.630318", "heart_rate": 67, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:50.412856", "heart_rate": 66, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:51.308784", "heart_rate": 65, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:52.416729", "heart_rate": 67, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:53.472085", "heart_rate": 69, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:54.540849", "heart_rate": 67, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:55.527407", "heart_rate": 69, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:56.474504", "heart_rate": 69, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:57.445630", "heart_rate": 71, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:58.573870", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "INTENT_PREDICTED", "timestamp": "2026-09-28T03:08:59.634137", "hand_index": 0, "object_class": "remote", "confidence": 0.36, "streak_frames": 5}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:08:59.643121", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:00.720674", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:01.817526", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:02.937858", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:04.004454", "heart_rate": 79, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:05.053868", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:06.190852", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:07.265714", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:08.324706", "heart_rate": 79, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:09.436438", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:10.554643", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:11.676678", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:12.761820", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:13.817691", "heart_rate": 79, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:14.882995", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:15.971534", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "INTENT_PREDICTED", "timestamp": "2026-09-28T03:09:17.003327", "hand_index": 0, "object_class": "cell phone", "confidence": 0.399, "streak_frames": 5}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:17.042781", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "INTENT_PREDICTED", "timestamp": "2026-09-28T03:09:17.521534", "hand_index": 0, "object_class": "cell phone", "confidence": 0.315, "streak_frames": 5}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:18.108155", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:19.159446", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:20.214964", "heart_rate": 82, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:21.275058", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "GRASP", "timestamp": "2026-09-28T03:09:22.353974", "hand_index": 0, "object_class": "cell phone", "confidence": 0.6449196338653564, "pinch_center": [0.17852323949337007, 0.6462263464927673], "frame_count": 8, "grip_type": "power"}
+{"event": "CALIBRATION_UPDATED", "timestamp": "2026-09-28T03:09:22.357068", "status": "calibrating", "ema_pinch": null, "ema_confidence": 0.6449196338653564, "grasp_count": 1}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:09:22.358015", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.6449196338653564, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:22.390203", "heart_rate": 81, "status": "Active", "is_simulated": true}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-28T03:09:22.800688", "status": "ACKNOWLEDGED", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 0.453}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:23.482991", "heart_rate": 81, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:24.478079", "heart_rate": 82, "status": "Active", "is_simulated": true}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:09:25.273927", "hand_index": 0, "object_class": "cell phone"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:25.473322", "heart_rate": 83, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:26.188605", "heart_rate": 85, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:27.020824", "heart_rate": 83, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:27.957475", "heart_rate": 82, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:29.014729", "heart_rate": 82, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:30.074369", "heart_rate": 84, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:31.178918", "heart_rate": 85, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:32.173222", "heart_rate": 84, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:33.132373", "heart_rate": 83, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:34.100906", "heart_rate": 83, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:35.004304", "heart_rate": 85, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:35.858647", "heart_rate": 87, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:36.670368", "heart_rate": 85, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:37.522714", "heart_rate": 87, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:38.333696", "heart_rate": 86, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:39.128326", "heart_rate": 87, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:39.960820", "heart_rate": 86, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:40.796496", "heart_rate": 84, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:41.628816", "heart_rate": 84, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:42.557270", "heart_rate": 86, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:43.342603", "heart_rate": 87, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:44.158994", "heart_rate": 86, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:45.008464", "heart_rate": 84, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:45.897521", "heart_rate": 82, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:46.760472", "heart_rate": 83, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:47.627174", "heart_rate": 83, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:48.432769", "heart_rate": 84, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:49.246111", "heart_rate": 82, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:50.093230", "heart_rate": 82, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:50.969838", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:51.853165", "heart_rate": 82, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:52.733740", "heart_rate": 81, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:53.623950", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:54.639769", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:55.679104", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "GRASP", "timestamp": "2026-09-28T03:09:56.739661", "hand_index": 1, "object_class": "cell phone", "confidence": 0.7043652534484863, "pinch_center": [0.2897426337003708, 0.5327816903591156], "frame_count": 8, "grip_type": "pinch"}
+{"event": "CALIBRATION_UPDATED", "timestamp": "2026-09-28T03:09:56.739661", "status": "calibrating", "ema_pinch": 0.005274847774769982, "ema_confidence": 0.6627533197402954, "grasp_count": 2}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:09:56.740659", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.7043652534484863, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:56.749761", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:09:56.955078", "hand_index": 1, "object_class": "cell phone"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:57.811491", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:09:58.851865", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:00.058388", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:01.052222", "heart_rate": 72, "status": "Resting", "is_simulated": true}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-28T03:10:01.793642", "status": "TIMED_OUT", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 5.047}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:02.019874", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:02.936821", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:03.697246", "heart_rate": 68, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:04.604701", "heart_rate": 67, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:05.566799", "heart_rate": 67, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:06.593257", "heart_rate": 67, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:07.651264", "heart_rate": 68, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:08.760475", "heart_rate": 65, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:09.821060", "heart_rate": 64, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:10.749376", "heart_rate": 67, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:11.820824", "heart_rate": 67, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:12.588840", "heart_rate": 67, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:13.396288", "heart_rate": 68, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:14.198519", "heart_rate": 68, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:15.022303", "heart_rate": 69, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:15.909118", "heart_rate": 68, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:16.981026", "heart_rate": 65, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:18.047289", "heart_rate": 67, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:19.163185", "heart_rate": 69, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:20.284928", "heart_rate": 71, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:21.373456", "heart_rate": 70, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:22.492990", "heart_rate": 72, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:23.612132", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:24.731759", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:25.825944", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:26.899912", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "GRASP", "timestamp": "2026-09-28T03:10:27.296178", "hand_index": 0, "object_class": "cell phone", "confidence": 0.5453120470046997, "pinch_center": [0.1832512080669403, 0.49811153411865233], "frame_count": 8, "grip_type": "power"}
+{"event": "CALIBRATION_UPDATED", "timestamp": "2026-09-28T03:10:27.296178", "status": "calibrating", "ema_pinch": 0.005274847774769982, "ema_confidence": 0.6275209379196166, "grasp_count": 3}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:10:27.296178", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.5453120470046997, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:10:27.409259", "hand_index": 0, "object_class": "cell phone"}
+{"event": "GRASP", "timestamp": "2026-09-28T03:10:27.847400", "hand_index": 0, "object_class": "cell phone", "confidence": 0.5453120470046997, "pinch_center": [0.1557250514626503, 0.49272502660751344], "frame_count": 8, "grip_type": "power"}
+{"event": "CALIBRATION_UPDATED", "timestamp": "2026-09-28T03:10:27.847400", "status": "calibrating", "ema_pinch": 0.005274847774769982, "ema_confidence": 0.6028582706451415, "grasp_count": 4}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:10:27.848445", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.5453120470046997, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-28T03:10:27.848445", "status": "ACKNOWLEDGED", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 0.0}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:28.010651", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:10:28.435098", "hand_index": 0, "object_class": "cell phone"}
+{"event": "GRASP", "timestamp": "2026-09-28T03:10:28.980860", "hand_index": 0, "object_class": "cell phone", "confidence": 0.5171810388565063, "pinch_center": [0.15713630616664886, 0.4927942454814911], "frame_count": 8, "grip_type": "power"}
+{"event": "CALIBRATION_UPDATED", "timestamp": "2026-09-28T03:10:28.980860", "status": "calibrated", "ema_pinch": 0.005274847774769982, "ema_confidence": 0.577155101108551, "grasp_count": 5}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:10:28.981807", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.5171810388565063, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:29.106938", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-28T03:10:29.411613", "status": "ACKNOWLEDGED", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 0.438}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:10:29.772691", "hand_index": 0, "object_class": "cell phone"}
+{"event": "GRASP", "timestamp": "2026-09-28T03:10:30.207272", "hand_index": 0, "object_class": "cell phone", "confidence": 0.5042508244514465, "pinch_center": [0.1807773768901825, 0.4887551605701447], "frame_count": 8, "grip_type": "power"}
+{"event": "CALIBRATION_UPDATED", "timestamp": "2026-09-28T03:10:30.207272", "status": "calibrated", "ema_pinch": 0.005274847774769982, "ema_confidence": 0.5552838181114196, "grasp_count": 6}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:10:30.208278", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.5042508244514465, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:30.216263", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-28T03:10:30.618524", "status": "ACKNOWLEDGED", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 0.406}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:10:30.964487", "hand_index": 0, "object_class": "cell phone"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:31.261985", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "GRASP", "timestamp": "2026-09-28T03:10:31.670149", "hand_index": 0, "object_class": "cell phone", "confidence": 0.555083155632019, "pinch_center": [0.17946687638759612, 0.4902042090892792], "frame_count": 8, "grip_type": "power"}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:10:31.671114", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.555083155632019, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-28T03:10:32.036847", "status": "ACKNOWLEDGED", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 0.375}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:32.271540", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:10:32.468092", "hand_index": 0, "object_class": "cell phone"}
+{"event": "GRASP", "timestamp": "2026-09-28T03:10:32.896344", "hand_index": 0, "object_class": "cell phone", "confidence": 0.5081655979156494, "pinch_center": [0.17511816024780275, 0.49994688034057616], "frame_count": 8, "grip_type": "power"}
+{"event": "CALIBRATION_UPDATED", "timestamp": "2026-09-28T03:10:32.896344", "status": "calibrated", "ema_pinch": 0.005274847774769982, "ema_confidence": 0.5411062129320144, "grasp_count": 8}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:10:32.897344", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.5081655979156494, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-28T03:10:33.279849", "status": "ACKNOWLEDGED", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 0.375}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:33.324314", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:10:33.614870", "hand_index": 0, "object_class": "cell phone"}
+{"event": "GRASP", "timestamp": "2026-09-28T03:10:34.077643", "hand_index": 0, "object_class": "cell phone", "confidence": 0.5541060566902161, "pinch_center": [0.15676071345806122, 0.49270946383476255], "frame_count": 8, "grip_type": "power"}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:10:34.079645", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.5541060566902161, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:34.461095", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-28T03:10:34.542527", "status": "ACKNOWLEDGED", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 0.469}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:10:34.984758", "hand_index": 0, "object_class": "cell phone"}
+{"event": "GRASP", "timestamp": "2026-09-28T03:10:35.410851", "hand_index": 0, "object_class": "cell phone", "confidence": 0.7133978009223938, "pinch_center": [0.16783297955989837, 0.5110835254192352], "frame_count": 8, "grip_type": "power"}
+{"event": "CALIBRATION_UPDATED", "timestamp": "2026-09-28T03:10:35.410851", "status": "calibrated", "ema_pinch": 0.005274847774769982, "ema_confidence": 0.5955236565183506, "grasp_count": 10}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:10:35.411856", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.7133978009223938, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:35.567641", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-28T03:10:35.797621", "status": "ACKNOWLEDGED", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 0.375}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:36.682892", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:10:36.896704", "hand_index": 0, "object_class": "cell phone"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:37.774751", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "GRASP", "timestamp": "2026-09-28T03:10:38.574787", "hand_index": 0, "object_class": "cell phone", "confidence": 0.5748778581619263, "pinch_center": [0.16981484293937682, 0.47829955220222475], "frame_count": 8, "grip_type": "power"}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:10:38.575789", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.5748778581619263, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:38.970354", "heart_rate": 79, "status": "Resting", "is_simulated": true}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-28T03:10:39.048019", "status": "ACKNOWLEDGED", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 0.469}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:40.077230", "heart_rate": 79, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:41.181107", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:10:42.023668", "hand_index": 0, "object_class": "cell phone"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:42.215837", "heart_rate": 79, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:43.197925", "heart_rate": 81, "status": "Active", "is_simulated": true}
+{"event": "GRASP", "timestamp": "2026-09-28T03:10:44.329457", "hand_index": 0, "object_class": "cell phone", "confidence": 0.6489076614379883, "pinch_center": [0.14028539508581161, 0.48633267879486086], "frame_count": 8, "grip_type": "power"}
+{"event": "CALIBRATION_UPDATED", "timestamp": "2026-09-28T03:10:44.331528", "status": "calibrated", "ema_pinch": 0.005274847774769982, "ema_confidence": 0.6072032403393927, "grasp_count": 12}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:10:44.333417", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.6489076614379883, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:44.342692", "heart_rate": 83, "status": "Active", "is_simulated": true}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:10:44.538137", "hand_index": 0, "object_class": "cell phone"}
+{"event": "GRASP", "timestamp": "2026-09-28T03:10:44.921286", "hand_index": 1, "object_class": "cell phone", "confidence": 0.60090172290802, "pinch_center": [0.14362445771694182, 0.4892835795879364], "frame_count": 8, "grip_type": "power"}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:10:44.922732", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.60090172290802, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-28T03:10:44.922732", "status": "ACKNOWLEDGED", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 0.0}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:45.477465", "heart_rate": 82, "status": "Active", "is_simulated": true}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:10:45.706208", "hand_index": 1, "object_class": "cell phone"}
+{"event": "GRASP", "timestamp": "2026-09-28T03:10:46.047053", "hand_index": 0, "object_class": "cell phone", "confidence": 0.6715739369392395, "pinch_center": [0.13954158276319503, 0.4651219010353088], "frame_count": 8, "grip_type": "power"}
+{"event": "CALIBRATION_UPDATED", "timestamp": "2026-09-28T03:10:46.047053", "status": "calibrated", "ema_pinch": 0.005274847774769982, "ema_confidence": 0.6251911306587584, "grasp_count": 14}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:10:46.048373", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.6715739369392395, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:46.647777", "heart_rate": 81, "status": "Active", "is_simulated": true}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-28T03:10:47.294037", "status": "ACKNOWLEDGED", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 1.235}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:47.758613", "heart_rate": 79, "status": "Resting", "is_simulated": true}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:10:48.517162", "hand_index": 0, "object_class": "cell phone"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:48.798207", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:49.547840", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:50.280281", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:51.024966", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:51.900849", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:52.927211", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:54.046708", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:55.129875", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:56.127295", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:57.000075", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:57.897508", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:58.733822", "heart_rate": 79, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:10:59.565479", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:00.365345", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:01.184876", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:01.999013", "heart_rate": 79, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:02.812036", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:03.634737", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:04.446351", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:05.282894", "heart_rate": 79, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:06.323856", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:07.396425", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:08.481967", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "GRASP", "timestamp": "2026-09-28T03:11:09.426955", "hand_index": 0, "object_class": "cell phone", "confidence": 0.6746872663497925, "pinch_center": [0.13985809534788132, 0.4901793301105499], "frame_count": 8, "grip_type": "power"}
+{"event": "CALIBRATION_UPDATED", "timestamp": "2026-09-28T03:11:09.426955", "status": "calibrated", "ema_pinch": 0.005274847774769982, "ema_confidence": 0.6400399713660686, "grasp_count": 15}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:11:09.429034", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.6746872663497925, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:09.584805", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-28T03:11:09.801862", "status": "ACKNOWLEDGED", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 0.375}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:11:10.662543", "hand_index": 0, "object_class": "cell phone"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:10.666452", "heart_rate": 79, "status": "Resting", "is_simulated": true}
+{"event": "INTENT_PREDICTED", "timestamp": "2026-09-28T03:11:11.598680", "hand_index": 0, "object_class": "cell phone", "confidence": 0.109, "streak_frames": 5}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:11.743669", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "GRASP", "timestamp": "2026-09-28T03:11:11.849255", "hand_index": 0, "object_class": "cell phone", "confidence": 0.5735208988189697, "pinch_center": [0.1151586800813675, 0.46211041808128356], "frame_count": 8, "grip_type": "power"}
+{"event": "CALIBRATION_UPDATED", "timestamp": "2026-09-28T03:11:11.852321", "status": "calibrated", "ema_pinch": 0.005274847774769982, "ema_confidence": 0.6200842496019389, "grasp_count": 16}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:11:11.852321", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.5735208988189697, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:11:11.968194", "hand_index": 0, "object_class": "cell phone"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:12.831554", "heart_rate": 81, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:13.896036", "heart_rate": 81, "status": "Active", "is_simulated": true}
+{"event": "GRASP", "timestamp": "2026-09-28T03:11:14.664725", "hand_index": 0, "object_class": "cell phone", "confidence": 0.6051203608512878, "pinch_center": [0.12879734188318254, 0.46809360980987547], "frame_count": 8, "grip_type": "power"}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:11:14.665746", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.6051203608512878, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-28T03:11:14.665746", "status": "ACKNOWLEDGED", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 0.0}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:15.007590", "heart_rate": 79, "status": "Resting", "is_simulated": true}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:11:15.401131", "hand_index": 0, "object_class": "cell phone"}
+{"event": "GRASP", "timestamp": "2026-09-28T03:11:15.877707", "hand_index": 0, "object_class": "cell phone", "confidence": 0.6011010408401489, "pinch_center": [0.12668402642011642, 0.4744864523410797], "frame_count": 8, "grip_type": "power"}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:11:15.877707", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.6011010408401489, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:16.134244", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-28T03:11:16.322400", "status": "ACKNOWLEDGED", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 0.453}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:17.277626", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:18.506071", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:19.628388", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:11:19.709929", "hand_index": 0, "object_class": "cell phone"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:20.721778", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "GRASP", "timestamp": "2026-09-28T03:11:21.113937", "hand_index": 0, "object_class": "cell phone", "confidence": 0.6061885952949524, "pinch_center": [0.11962009966373444, 0.4879668056964874], "frame_count": 8, "grip_type": "power"}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:11:21.114866", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.6061885952949524, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-28T03:11:21.486018", "status": "ACKNOWLEDGED", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 0.359}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:21.837027", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:22.973788", "heart_rate": 72, "status": "Resting", "is_simulated": true}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:11:24.046783", "hand_index": 0, "object_class": "cell phone"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:24.081635", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:25.253959", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "GRASP", "timestamp": "2026-09-28T03:11:26.283000", "hand_index": 0, "object_class": "cell phone", "confidence": 0.5856855511665344, "pinch_center": [0.10160053372383118, 0.45916691422462463], "frame_count": 8, "grip_type": "power"}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:11:26.283000", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.5856855511665344, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:26.338855", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-28T03:11:27.227370", "status": "ACKNOWLEDGED", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 0.953}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:27.423018", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:11:28.295661", "hand_index": 0, "object_class": "cell phone"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:28.432949", "heart_rate": 77, "status": "Resting", "is_simulated": true}
+{"event": "GRASP", "timestamp": "2026-09-28T03:11:28.742464", "hand_index": 0, "object_class": "cell phone", "confidence": 0.6721433997154236, "pinch_center": [0.14706235975027085, 0.47576247453689574], "frame_count": 8, "grip_type": "power"}
+{"event": "CALIBRATION_UPDATED", "timestamp": "2026-09-28T03:11:28.742464", "status": "calibrated", "ema_pinch": 0.005274847774769982, "ema_confidence": 0.6234043856931248, "grasp_count": 21}
+{"event": "STEP_RESULT", "timestamp": "2026-09-28T03:11:28.743486", "step_id": 1, "step_name": "Grasp bottle", "object_class": "cell phone", "confidence": 0.6721433997154236, "status": "SKIP_DETECTED", "message": "SKIP DETECTED \u2014 grasped 'cell phone' but expected 'bottle'"}
+{"event": "RELEASE", "timestamp": "2026-09-28T03:11:29.013658", "hand_index": 0, "object_class": "cell phone"}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:29.415698", "heart_rate": 75, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:30.166800", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:31.060821", "heart_rate": 78, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:32.030955", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:32.989484", "heart_rate": 81, "status": "Active", "is_simulated": true}
+{"event": "GESTURE_ACK", "timestamp": "2026-09-28T03:11:33.774679", "status": "TIMED_OUT", "fsm_event_type": "SKIP_DETECTED", "step_id": 1, "object_class": "cell phone", "elapsed_seconds": 5.031}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:33.807439", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:34.627459", "heart_rate": 81, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:35.437560", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:36.304507", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-09-28T03:11:37.555825", "heart_rate": 80, "status": "Active", "is_simulated": true}
+{"event": "SESSION_END", "timestamp": "2026-09-28T03:11:37.824360", "duration_seconds": 229.836}
