@@ -170,5 +170,7 @@ profiles.json
 har_system/profiles.json
 har_system/recordings/*
 !har_system/recordings/.gitkeep
+logs/
+har_system/logs/*.jsonl
 *.pt
 *.onnx

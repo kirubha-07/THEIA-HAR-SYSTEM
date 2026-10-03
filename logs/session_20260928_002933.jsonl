@@ -1,5 +1,0 @@
-{"event": "SESSION_START", "timestamp": "2026-09-28T00:29:33.065823", "session_id": "20260928_002933", "experiment_name": "ISRO Sample Experiment"}
-{"event": "HEALTH_READING", "timestamp": "2026-09-28T00:29:36.087184", "heart_rate": 73, "status": "Resting", "is_simulated": true}
-{"event": "HEALTH_READING", "timestamp": "2026-09-28T00:29:36.883436", "heart_rate": 74, "status": "Resting", "is_simulated": true}
-{"event": "HEALTH_READING", "timestamp": "2026-09-28T00:29:37.875403", "heart_rate": 76, "status": "Resting", "is_simulated": true}
-{"event": "SESSION_END", "timestamp": "2026-09-28T00:29:38.171490", "duration_seconds": 5.107}
