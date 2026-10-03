@@ -135,7 +135,7 @@ class PipelineWorker(QThread):
         video_source = os.getenv("TEST_VIDEO_PATH")
         cam_index = video_source if video_source else 0
         self.camera = CameraCapture(cam_index=cam_index, width=640, height=480, fps=20)
-        self.detector = YOLODetector(model_path="yolov8n.pt", conf=0.5)
+        self.detector = YOLODetector(conf=self._min_conf)
         self.hand_tracker = HandTracker(
             max_hands=2,
             detection_confidence=0.7,
@@ -176,7 +176,14 @@ class PipelineWorker(QThread):
             default_min_conf=self._conf_default,
         )
         self.logger = SessionLogger(
-            log_dir=str(LOGS_DIR), experiment_name=self.fsm._experiment_name
+            log_dir=str(LOGS_DIR),
+            experiment_name=self.fsm._experiment_name,
+            model_info={
+                "weights": self.detector.weights,
+                "classes": self.detector.classes,
+                "imgsz": self.detector.imgsz,
+                "format": self.detector.model_format,
+            },
         )
 
         # ── Proportional alerting engine (Phase 3) ──────────────────────

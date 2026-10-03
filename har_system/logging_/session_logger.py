@@ -41,7 +41,10 @@ class SessionLogger:
     """
 
     def __init__(
-        self, log_dir: str | None = None, experiment_name: str = "unknown"
+        self,
+        log_dir: str | None = None,
+        experiment_name: str = "unknown",
+        model_info: dict | None = None,
     ) -> None:
         log_dir_str = str(LOGS_DIR) if log_dir is None else str(log_dir)
         os.makedirs(log_dir_str, exist_ok=True)
@@ -55,15 +58,35 @@ class SessionLogger:
 
         self._fh: IO[str] = open(self._filename, "a", encoding="utf-8")
 
+        start_event = {
+            "event": "SESSION_START",
+            "timestamp": datetime.now().isoformat(),
+            "session_id": self._session_ts,
+            "experiment_name": self._experiment_name,
+        }
+
+        if model_info is None:
+            try:
+                from perception.detector import load_model_config
+                cfg = load_model_config()
+                start_event.update({
+                    "weights": cfg.get("weights"),
+                    "classes": {0: "yellow_box", 1: "red_box", 2: "tray"} if not cfg.get("is_stock") else None,
+                    "imgsz": cfg.get("imgsz"),
+                    "format": cfg.get("format"),
+                })
+            except Exception:
+                pass
+        else:
+            start_event.update({
+                "weights": model_info.get("weights"),
+                "classes": model_info.get("classes"),
+                "imgsz": model_info.get("imgsz"),
+                "format": model_info.get("format"),
+            })
+
         # Write SESSION_START immediately
-        self._write(
-            {
-                "event": "SESSION_START",
-                "timestamp": datetime.now().isoformat(),
-                "session_id": self._session_ts,
-                "experiment_name": self._experiment_name,
-            }
-        )
+        self._write(start_event)
 
     # ------------------------------------------------------------------
     # Properties

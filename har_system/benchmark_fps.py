@@ -77,7 +77,7 @@ def run_benchmark(duration_seconds: float, label: str) -> dict:
     return a summary dict. Never writes to disk itself — the caller
     decides whether/where to persist the result."""
     camera = CameraCapture(cam_index=0, width=640, height=480, fps=20)
-    detector = YOLODetector(model_path="yolov8n.pt", conf=0.5)
+    detector = YOLODetector(conf=0.5)
     hand_tracker = HandTracker(max_hands=2, detection_confidence=0.7, tracking_confidence=0.5)
     grasp_detector = GraspDetector(
         proximity_threshold=0.08,
