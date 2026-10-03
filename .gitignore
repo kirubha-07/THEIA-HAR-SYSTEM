@@ -176,3 +176,4 @@ har_system/logs/*.jsonl
 *.onnx
 !har_system/models/theia_yolov8n.pt
 !har_system/models/theia_yolov8n.onnx
+har_system/models/*.data
