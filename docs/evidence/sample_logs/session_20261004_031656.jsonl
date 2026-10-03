@@ -1,0 +1,5 @@
+{"event": "SESSION_START", "timestamp": "2026-10-04T03:16:56.635030", "session_id": "20261004_031656", "experiment_name": "ISRO Sample Experiment", "weights": "C:\\Users\\Kirubhakaran\\Downloads\\SIH-main\\har_system\\models\\theia_yolov8n.pt", "classes": {"0": "yellow_box", "1": "red_box", "2": "tray"}, "imgsz": 320, "format": "pt"}
+{"event": "HEALTH_READING", "timestamp": "2026-10-04T03:17:01.445783", "heart_rate": 73, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-10-04T03:17:03.224515", "heart_rate": 74, "status": "Resting", "is_simulated": true}
+{"event": "HEALTH_READING", "timestamp": "2026-10-04T03:17:04.986585", "heart_rate": 76, "status": "Resting", "is_simulated": true}
+{"event": "SESSION_END", "timestamp": "2026-10-04T03:17:05.682428", "duration_seconds": 9.047}

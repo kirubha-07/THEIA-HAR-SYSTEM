@@ -1,4 +1,22 @@
-timestamp,label,hostname,platform,processor,duration_seconds,frame_count,avg_fps,min_fps,max_fps,median_fps,p10_fps
-2026-09-27T12:42:22.588377,test,LordEREN0314,Windows-10-10.0.26200-SP0,"Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",5.69,40,18.32,0.34,23.4,18.71,16.92
-2026-09-27T12:43:18.967312,test_latency,LordEREN0314,Windows-10-10.0.26200-SP0,"Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",12.59,167,20.32,0.54,23.33,20.67,18.59,0.1,0.1
-2026-09-27T13:04:44.966379,latency_retest,LordEREN0314,Windows-10-10.0.26200-SP0,"Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",8.61,75,18.84,0.47,22.84,19.03,16.58,1.6,1.6
+clip,weights,format,imgsz,frames,mean_fps,median_fps,p10_fps,min_fps,hostname,cpu
+v1_standard.mp4,theia_yolov8n.pt,pt,320,220,22.16,22.31,19.77,15.3,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v2_occlusion.mp4,theia_yolov8n.pt,pt,320,220,23.34,23.7,19.04,13.81,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v3_harsh_light.mp4,theia_yolov8n.pt,pt,320,220,24.66,24.56,22.18,15.53,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v4_distractors.mp4,theia_yolov8n.pt,pt,320,220,22.73,23.55,18.48,14.47,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v6_rotated_90.mp4,theia_yolov8n.pt,pt,320,220,20.76,23.5,9.55,7.82,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v7.mp4,theia_yolov8n.pt,pt,320,220,27.65,30.94,12.88,11.58,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v8.mp4,theia_yolov8n.pt,pt,320,220,23.67,23.73,12.16,9.2,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v9.mp4,theia_yolov8n.pt,pt,320,220,12.71,12.75,12.12,11.02,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v10.mp4,theia_yolov8n.pt,pt,320,220,12.66,12.7,12.06,10.31,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v11.mp4,theia_yolov8n.pt,pt,320,220,12.54,12.57,12.09,3.23,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v1_standard.mp4,theia_yolov8n.onnx,onnx,320,220,8.14,4.91,4.42,3.94,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v2_occlusion.mp4,theia_yolov8n.onnx,onnx,320,220,4.62,4.59,4.05,2.84,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v3_harsh_light.mp4,theia_yolov8n.onnx,onnx,320,220,23.19,25.13,18.14,3.98,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v4_distractors.mp4,theia_yolov8n.onnx,onnx,320,220,18.55,22.87,3.95,3.49,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v6_rotated_90.mp4,theia_yolov8n.onnx,onnx,320,220,19.51,25.18,4.69,4.2,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v7.mp4,theia_yolov8n.onnx,onnx,320,220,16.63,5.74,4.35,3.27,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v8.mp4,theia_yolov8n.onnx,onnx,320,220,33.7,35.12,28.91,4.57,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v9.mp4,theia_yolov8n.onnx,onnx,320,220,33.65,34.52,30.63,12.66,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v10.mp4,theia_yolov8n.onnx,onnx,320,220,33.38,34.54,26.1,14.91,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v11.mp4,theia_yolov8n.onnx,onnx,320,220,33.55,34.31,29.59,22.22,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX
+v1_standard.mp4,theia_yolov8n.pt,pt,640,220,19.46,19.52,18.04,15.59,LordEREN0314,13th Gen Intel(R) Core(TM) i5-13450HX

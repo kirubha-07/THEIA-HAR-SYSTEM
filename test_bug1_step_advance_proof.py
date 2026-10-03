@@ -14,7 +14,7 @@ from perception.grasp_detector import GraspEvent
 
 def test_step_advancement():
     print("[TEST] Verifying FSM step advancement and UI propagation...")
-    app = QApplication(sys.argv)
+    app = QApplication.instance() or QApplication(sys.argv)
 
     shared_state = SharedState()
     config_path = os.path.join("har_system", "configs", "experiment_config.yaml")
@@ -36,10 +36,14 @@ def test_step_advancement():
     assert window.page_live_ops.progress_bar._current_step == 1
     print("[TEST] Initial state: Step 1 active, 0 completed.")
 
-    # 1. Simulate Grasp bottle (Step 1)
+    step1_obj = worker.fsm._steps[0].trigger_object
+    step2_obj = worker.fsm._steps[1].trigger_object
+    step3_obj = worker.fsm._steps[2].trigger_object
+
+    # 1. Simulate Grasp Step 1 object
     ge1 = GraspEvent(
         hand_index=0,
-        object_class="bottle",
+        object_class=step1_obj,
         object_confidence=0.88,
         bbox_norm={"x1": 0.3, "y1": 0.3, "x2": 0.6, "y2": 0.6, "cx": 0.45, "cy": 0.45},
         pinch_center=(0.45, 0.45),
@@ -59,10 +63,10 @@ def test_step_advancement():
     assert "STEP 2 OF 3" in window.page_live_ops.step_counter_label.text()
     assert "STEP 2/3" in window.global_alert_strip.step_label.text()
 
-    # 2. Simulate Grasp remote (Step 2, detected as cell phone)
+    # 2. Simulate Grasp Step 2 object
     ge2 = GraspEvent(
         hand_index=0,
-        object_class="cell phone",
+        object_class=step2_obj,
         object_confidence=0.91,
         bbox_norm={"x1": 0.3, "y1": 0.3, "x2": 0.6, "y2": 0.6, "cx": 0.45, "cy": 0.45},
         pinch_center=(0.45, 0.45),
@@ -87,10 +91,10 @@ def test_step_advancement():
     pix.save(save_path)
     print(f"[TEST] Advanced steps screenshot saved to: {save_path}")
 
-    # 3. Simulate Grasp cell phone (Step 3)
+    # 3. Simulate Grasp Step 3 object
     ge3 = GraspEvent(
         hand_index=0,
-        object_class="cell phone",
+        object_class=step3_obj,
         object_confidence=0.86,
         bbox_norm={"x1": 0.3, "y1": 0.3, "x2": 0.6, "y2": 0.6, "cx": 0.45, "cy": 0.45},
         pinch_center=(0.45, 0.45),

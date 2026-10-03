@@ -108,21 +108,27 @@ class VoiceAlert:
         confirmation + next-hint are always paired together.
         """
         if fsm_event.type == FSMEventType.SKIP_DETECTED:
-            expected_object = self._extract_expected(fsm_event.message)
-            text = f"Wrong object. Expected {expected_object}."
+            if "grasped the" in fsm_event.message.lower() and "expected the" in fsm_event.message.lower():
+                clean_msg = fsm_event.message.split("—", 1)[-1].strip() if "—" in fsm_event.message else fsm_event.message
+                text = f"{clean_msg}."
+            else:
+                expected_object = self._extract_expected(fsm_event.message)
+                text = f"Wrong object. Expected {expected_object}."
 
         elif fsm_event.type == FSMEventType.OUT_OF_SEQUENCE:
-            # Use next_hint's object name if available so the astronaut
-            # hears "Continue: grasp the bottle" rather than the opaque
-            # "Continue with step 2" which doesn't help them recover.
+            disp = fsm_event.object_class
+            if "—" in fsm_event.message and "is not part" in fsm_event.message:
+                m = re.search(r"['\"]([^'\"]+)['\"]\s+is not part", fsm_event.message)
+                if m:
+                    disp = m.group(1)
             if fsm_event.next_hint:
                 text = (
-                    f"{fsm_event.object_class} is not needed. "
+                    f"{disp} is not needed. "
                     f"{fsm_event.next_hint}."
                 )
             else:
                 text = (
-                    f"{fsm_event.object_class} is not needed. "
+                    f"{disp} is not needed. "
                     f"Continue with step {fsm_event.step_id}."
                 )
 
@@ -194,9 +200,9 @@ class VoiceAlert:
 
         Falls back to ``"the expected object"`` if parsing fails.
         """
-        match = re.search(r"expected\s+'([^']+)'", message)
+        match = re.search(r"expected\s+(?:the\s+)?['\"]?([^'\".]+)['\"]?", message, re.IGNORECASE)
         if match:
-            return match.group(1)
+            return match.group(1).strip()
         return "the expected object"
 
     @staticmethod

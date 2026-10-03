@@ -19,6 +19,10 @@ CONFIG_DIR = BASE_DIR / "configs"
 CONFIGS_DIR = CONFIG_DIR  # Convenience alias
 BENCHMARKS_DIR = BASE_DIR / "benchmarks"
 
+MODEL_CONFIG_PATH = CONFIG_DIR / "model_config.yaml"
+EXPERIMENT_CONFIG_PATH = CONFIG_DIR / "experiment_config.yaml"
+EXPERIMENT_CONFIG_STOCK_PATH = CONFIG_DIR / "experiment_config_stock_coco.yaml"
+
 # Ensure all runtime output directories exist
 LOGS_DIR.mkdir(parents=True, exist_ok=True)
 RECORDINGS_DIR.mkdir(parents=True, exist_ok=True)

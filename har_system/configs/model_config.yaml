@@ -1,0 +1,4 @@
+weights: models/theia_yolov8n.pt
+imgsz: 320
+conf: 0.5
+format: pt

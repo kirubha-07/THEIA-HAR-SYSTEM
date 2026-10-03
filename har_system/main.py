@@ -123,7 +123,10 @@ def main() -> None:
     print(f"[server] WebSocket state -> {ws_url}")
 
     # ── 4. Build config path ────────────────────────────────────────────
-    config_path = str(CONFIG_DIR / "experiment_config.yaml")
+    if os.environ.get("THEIA_WEIGHTS", "").strip().lower() == "stock":
+        config_path = str(CONFIG_DIR / "experiment_config_stock_coco.yaml")
+    else:
+        config_path = str(CONFIG_DIR / "experiment_config.yaml")
 
     # ── 5. Create PipelineWorker ────────────────────────────────────────
     worker = PipelineWorker(

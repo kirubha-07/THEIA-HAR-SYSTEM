@@ -121,6 +121,8 @@ class ExperimentFSM:
         experiment = raw["experiment"]
         self._experiment_name: str = experiment["name"]
         self._experiment_description: str = experiment["description"]
+        self.context_objects: list[str] = list(experiment.get("context_objects") or [])
+        self.display_names: dict[str, str] = dict(experiment.get("display_names") or {})
 
         # ── Parse step definitions ──────────────────────────────────────
         self._steps: list[_StepDef] = []
@@ -177,13 +179,19 @@ class ExperimentFSM:
         if self.status == FSMStatus.COMPLETE:
             return None
 
+        grasped = grasp_event.object_class
+
+        # Objects listed in context_objects must never become grasp candidates
+        # and never cause SKIP or OUT_OF_SEQUENCE.
+        if grasped in self.context_objects:
+            return None
+
         # Start the clock on first grasp
         if self.status == FSMStatus.WAITING:
             self.status = FSMStatus.IN_PROGRESS
             self.start_time = datetime.now()
 
-        self.active_object = grasp_event.object_class
-        grasped = grasp_event.object_class
+        self.active_object = grasped
 
         # ── Step A: Determine expected object ───────────────────────────
         current_step = self._steps[self.current_step_index]
@@ -238,6 +246,9 @@ class ExperimentFSM:
                 next_hint=self._steps[self.current_step_index].next_hint,
             )
 
+        grasped_disp = self.display_names.get(grasped, grasped)
+        expected_disp = self.display_names.get(expected, expected)
+
         # ── NO MATCH: check if grasped object matches a FUTURE step ────
         for future_idx in range(
             self.current_step_index + 1, len(self._steps)
@@ -252,8 +263,8 @@ class ExperimentFSM:
                     object_class=grasped,
                     confidence=grasp_event.object_confidence,
                     message=(
-                        f"SKIP DETECTED — grasped '{grasped}' but "
-                        f"expected '{expected}'"
+                        f"SKIP DETECTED — grasped the {grasped_disp} but "
+                        f"expected the {expected_disp}"
                     ),
                     timestamp=now,
                     # Retain the current step's hint so the GUI continues
@@ -270,7 +281,7 @@ class ExperimentFSM:
             object_class=grasped,
             confidence=grasp_event.object_confidence,
             message=(
-                f"OUT OF SEQUENCE — '{grasped}' is not part of "
+                f"OUT OF SEQUENCE — '{grasped_disp}' is not part of "
                 f"this experiment"
             ),
             timestamp=now,

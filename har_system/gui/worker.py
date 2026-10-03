@@ -135,12 +135,13 @@ class PipelineWorker(QThread):
         video_source = os.getenv("TEST_VIDEO_PATH")
         cam_index = video_source if video_source else 0
         self.camera = CameraCapture(cam_index=cam_index, width=640, height=480, fps=20)
-        self.detector = YOLODetector(model_path="yolov8n.pt", conf=0.5)
+        self.detector = YOLODetector(conf=self._min_conf)
         self.hand_tracker = HandTracker(
             max_hands=2,
             detection_confidence=0.7,
             tracking_confidence=0.5,
         )
+        self.fsm = ExperimentFSM(config_path=config_path)
         self.grasp_detector = GraspDetector(
             proximity_threshold=0.08,
             # Power-grip proximity is wider: the palm centre sits
@@ -151,8 +152,8 @@ class PipelineWorker(QThread):
             power_grip_proximity_threshold=0.15,
             pinch_threshold=0.07,
             debounce_frames=8,
+            context_objects=self.fsm.context_objects,
         )
-        self.fsm = ExperimentFSM(config_path=config_path)
         self.voice_alert = VoiceAlert(rate=195, volume=1.0)
         self.gesture_recognizer = GestureRecognizer(debounce_frames=8)
         self.ack_tracker = AcknowledgmentTracker(window_seconds=5.0)
@@ -176,7 +177,14 @@ class PipelineWorker(QThread):
             default_min_conf=self._conf_default,
         )
         self.logger = SessionLogger(
-            log_dir=str(LOGS_DIR), experiment_name=self.fsm._experiment_name
+            log_dir=str(LOGS_DIR),
+            experiment_name=self.fsm._experiment_name,
+            model_info={
+                "weights": self.detector.weights,
+                "classes": self.detector.classes,
+                "imgsz": self.detector.imgsz,
+                "format": self.detector.model_format,
+            },
         )
 
         # ── Proportional alerting engine (Phase 3) ──────────────────────
@@ -199,6 +207,7 @@ class PipelineWorker(QThread):
             consistency_frames=5,
             max_angle_degrees=35.0,
             min_movement=0.02,
+            context_objects=self.fsm.context_objects,
         )
         # Per-hand: which mismatched object is the CURRENT ongoing
         # mismatch episode, so a sustained wrong-direction prediction
@@ -263,7 +272,7 @@ class PipelineWorker(QThread):
         hand tracking runs every frame for responsive grasp detection.
         """
         try:
-            self._recording_path = self.camera.start_recording()
+            self._recording_path = self.camera.start_recording(logger=self.logger)
             print(f"[worker] Session recording: {self._recording_path}")
             print(f"[worker] Log: {self.logger.filepath}")
             print(f"[worker] Experiment: {self.fsm._experiment_name}")
@@ -303,7 +312,8 @@ class PipelineWorker(QThread):
 
                 frame_count += 1
                 if frame_count == 1:
-                    print(f"[worker DEBUG] Frame #1 captured successfully: shape={frame.shape}")
+                    if os.environ.get("THEIA_DEBUG", "0") == "1":
+                        print(f"[worker DEBUG] Frame #1 captured successfully: shape={frame.shape}")
 
                 if frame_count % 20 == 0:
                     vitals = self.health_monitor.read_vitals()
@@ -402,13 +412,14 @@ class PipelineWorker(QThread):
 
                     ev = self.fsm.process_grasp(ge)
                     # [DEBUG] FSM step-index checkpoint (Phase 0 diagnostic point 3)
-                    print(
-                        f"[DEBUG][fsm] after process_grasp('{ge.object_class}'): "
-                        f"step_index={self.fsm.current_step_index}/"
-                        f"{self.fsm.total_steps} "
-                        f"status={self.fsm.status.name} "
-                        f"event={ev.type.name if ev else None}"
-                    )
+                    if os.environ.get("THEIA_DEBUG", "0") == "1":
+                        print(
+                            f"[DEBUG][fsm] after process_grasp('{ge.object_class}'): "
+                            f"step_index={self.fsm.current_step_index}/"
+                            f"{self.fsm.total_steps} "
+                            f"status={self.fsm.status.name} "
+                            f"event={ev.type.name if ev else None}"
+                        )
                     if ev is not None:
                         self.logger.log_step_result(ev)
                         self.fsm_event.emit(ev)
@@ -624,7 +635,8 @@ class PipelineWorker(QThread):
 
                 # ── 13. Emit frame for GUI ──────────────────────────────
                 if frame_count == 1:
-                    print(f"[worker DEBUG] Emitting first frame_ready signal (shape={annotated.shape})...")
+                    if os.environ.get("THEIA_DEBUG", "0") == "1":
+                        print(f"[worker DEBUG] Emitting first frame_ready signal (shape={annotated.shape})...")
                 self.frame_ready.emit(annotated)
 
         except Exception as exc:
