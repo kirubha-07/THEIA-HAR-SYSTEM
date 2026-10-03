@@ -141,6 +141,7 @@ class PipelineWorker(QThread):
             detection_confidence=0.7,
             tracking_confidence=0.5,
         )
+        self.fsm = ExperimentFSM(config_path=config_path)
         self.grasp_detector = GraspDetector(
             proximity_threshold=0.08,
             # Power-grip proximity is wider: the palm centre sits
@@ -151,8 +152,8 @@ class PipelineWorker(QThread):
             power_grip_proximity_threshold=0.15,
             pinch_threshold=0.07,
             debounce_frames=8,
+            context_objects=self.fsm.context_objects,
         )
-        self.fsm = ExperimentFSM(config_path=config_path)
         self.voice_alert = VoiceAlert(rate=195, volume=1.0)
         self.gesture_recognizer = GestureRecognizer(debounce_frames=8)
         self.ack_tracker = AcknowledgmentTracker(window_seconds=5.0)
@@ -206,6 +207,7 @@ class PipelineWorker(QThread):
             consistency_frames=5,
             max_angle_degrees=35.0,
             min_movement=0.02,
+            context_objects=self.fsm.context_objects,
         )
         # Per-hand: which mismatched object is the CURRENT ongoing
         # mismatch episode, so a sustained wrong-direction prediction

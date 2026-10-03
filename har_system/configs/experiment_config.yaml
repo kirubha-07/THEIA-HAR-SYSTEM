@@ -1,30 +1,36 @@
 experiment:
   name: "ISRO Sample Experiment"
-  description: "Red-Yellow Box Extraction Sequence"
+  description: "Red-Yellow Module Extraction Sequence"
+  context_objects:
+    - tray
+  display_names:
+    red_box: "red module"
+    yellow_box: "yellow module"
+    tray: "tray"
   steps:
     - id: 1
-      name: "Grasp bottle"
-      description: "Pick up the water bottle from the rack"
+      name: "Grasp red module"
+      description: "Take the red module out of the tray"
       trigger:
         action: grasp
-        object: bottle
-      success_message: "Step 1 complete. Bottle secured."
-      next_hint: "Hint: Grasp the water bottle"
+        object: red_box
+      success_message: "Step 1 complete. Red module secured."
+      next_hint: "Hint: Take the red module out of the tray"
 
     - id: 2
-      name: "Grasp remote"
-      description: "Pick up the physical remote (detects as cell phone due to sim-to-real gap)"
+      name: "Grasp yellow module"
+      description: "Take the yellow module out of the tray"
       trigger:
         action: grasp
-        object: cell phone
-      success_message: "Step 2 complete. Remote secured."
-      next_hint: "Hint: Grasp the remote control"
+        object: yellow_box
+      success_message: "Step 2 complete. Yellow module secured."
+      next_hint: "Hint: Take the yellow module out of the tray"
 
     - id: 3
-      name: "Grasp cell phone"
-      description: "Pick up the physical cell phone"
+      name: "Return red module"
+      description: "Pick up the red module again to return it"
       trigger:
         action: grasp
-        object: cell phone
+        object: red_box
       success_message: "Step 3 complete. Experiment sequence validated."
-      next_hint: "Hint: Experiment complete"
+      next_hint: "Hint: Pick up the red module again"

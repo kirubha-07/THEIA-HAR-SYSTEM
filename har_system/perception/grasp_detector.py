@@ -172,8 +172,10 @@ class GraspDetector:
         debounce_frames: int = 8,
         power_grip_enabled: bool = True,
         object_memory_frames: int = 20,
+        context_objects: list[str] | None = None,
     ) -> None:
         self._proximity_threshold = proximity_threshold
+        self.context_objects: list[str] = list(context_objects or ["tray"])
         # Power-grip path uses a wider window than precision pinch: the
         # palm centre sits above/around the object and can be 0.10–0.15
         # normalised units from the YOLO centroid on a box-sized object.
@@ -424,9 +426,12 @@ class GraspDetector:
         grasp_events: list[GraspEvent] = []
         release_events: list[ReleaseEvent] = []
 
-        # ── Step 1: Suppress 'person' class ─────────────────────────────
+        # ── Step 1: Suppress 'person' and context objects ────────────────
         filtered_detections = [
-            d for d in detections if d["class_name"] != "person"
+            d
+            for d in detections
+            if d["class_name"] != "person"
+            and d["class_name"] not in self.context_objects
         ]
 
         # ── Step 2: Pre-normalize all YOLO bboxes ──────────────────────

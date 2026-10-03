@@ -99,11 +99,13 @@ class IntentPredictor:
         consistency_frames: int = 5,
         max_angle_degrees: float = 35.0,
         min_movement: float = 0.02,
+        context_objects: list[str] | None = None,
     ) -> None:
         self._trajectory_window = trajectory_window
         self._consistency_frames = consistency_frames
         self._max_angle_degrees = max_angle_degrees
         self._min_movement = min_movement
+        self.context_objects: list[str] = list(context_objects or ["tray"])
 
         self._hand_trajectories: dict[int, _HandTrajectory] = {}
 
@@ -165,7 +167,7 @@ class IntentPredictor:
                 "bbox_norm": self._normalize_bbox(d["bbox"], frame_w, frame_h),
             }
             for d in detections
-            if d["class_name"] != "person"
+            if d["class_name"] != "person" and d["class_name"] not in self.context_objects
         ]
 
         for hand_idx in range(hand_result.hand_count):
