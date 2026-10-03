@@ -35,14 +35,17 @@ from gui.pages.common import (
     _CLR_IDLE,
 )
 
+from perception.adaptive_calibration import AdaptiveCalibration
+
 _MAX_EMA_POINTS = 100
 
 
 class IntelligenceDeepDivePage(BaseSubscriberPage):
     """Page 3: Intelligence Layer Deep Dive (Adaptive Calibration & Intent Prediction)."""
 
-    def __init__(self, parent: QWidget | None = None) -> None:
+    def __init__(self, calibration: AdaptiveCalibration | None = None, parent: QWidget | None = None) -> None:
         super().__init__(parent)
+        self._calibration = calibration
         self._ema_pinch_history: list[float] = []
         self._intent_conf_history: list[float] = []
         self._total_predictions = 0
@@ -59,7 +62,11 @@ class IntelligenceDeepDivePage(BaseSubscriberPage):
         metrics_row = QHBoxLayout()
         metrics_row.setSpacing(10)
 
-        tile1, self.cal_status_lbl, self.cal_status_sub = create_metric_tile("CALIBRATION STATUS", "CALIBRATING", "EMA Alpha: 0.10 | Target: Hand Kinematics", _CLR_ACCENT)
+        cal = self._calibration or AdaptiveCalibration()
+        alpha = cal.ema_alpha
+        blend = cal.blend_weight
+        sub_text = f"EMA Alpha: {alpha:.2f} (Blend: {blend:.2f}) | Target: Hand Kinematics"
+        tile1, self.cal_status_lbl, self.cal_status_sub = create_metric_tile("CALIBRATION STATUS", "CALIBRATING", sub_text, _CLR_ACCENT)
         tile2, self.pinch_stat_lbl, self.pinch_sub_lbl = create_metric_tile("PINCH THRESHOLD", "0.070", "Default: 0.070 | Drift: +0.0%", _CLR_SUCCESS)
         tile3, self.pred_count_lbl, self.pred_sub_lbl = create_metric_tile("INTENT PREDICTIONS", "0", "Anticipatory trajectory tracking", _CLR_TEXT)
         tile4, self.escl_count_lbl, self.escl_sub_lbl = create_metric_tile("ESCALATED ALERTS", "0", "High-confidence safety mismatches", _CLR_WARNING)
@@ -274,6 +281,11 @@ class IntelligenceDeepDivePage(BaseSubscriberPage):
     # ── SUBSCRIBER SIGNAL BINDING ─────────────────────────────────────────
 
     def subscribe(self, worker) -> None:
+        if hasattr(worker, "calibration") and worker.calibration is not None:
+            self._calibration = worker.calibration
+            alpha = self._calibration.ema_alpha
+            blend = self._calibration.blend_weight
+            self.cal_status_sub.setText(f"EMA Alpha: {alpha:.2f} (Blend: {blend:.2f}) | Target: Hand Kinematics")
         worker.calibration_state_changed.connect(self.update_calibration_state)
         worker.intent_predicted.connect(self.handle_intent_predicted)
 

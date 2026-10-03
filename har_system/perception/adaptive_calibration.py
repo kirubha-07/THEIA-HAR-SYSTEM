@@ -90,6 +90,16 @@ class AdaptiveCalibration:
     # ------------------------------------------------------------------
 
     @property
+    def ema_alpha(self) -> float:
+        """EMA smoothing factor."""
+        return self._ema_alpha
+
+    @property
+    def blend_weight(self) -> float:
+        """Weight for blending EMA with default thresholds."""
+        return self._blend_weight
+
+    @property
     def is_converged(self) -> bool:
         """Whether enough grasps have been observed to consider
         calibration converged (drives the GUI chip's "Calibrated"
