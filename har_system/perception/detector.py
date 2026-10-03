@@ -115,6 +115,7 @@ class YOLODetector:
         conf: Optional[float] = None,
         imgsz: Optional[int] = None,
         model_format: Optional[str] = None,
+        format: Optional[str] = None,
     ) -> None:
         """Load the YOLO model.
 
@@ -128,7 +129,11 @@ class YOLODetector:
             Inference image resolution passed to YOLO.predict() (default: config or 320).
         model_format : str, optional
             Execution format ('pt' or 'onnx'). Inferred from extension/config if None.
+        format : str, optional
+            Alias for model_format ('pt' or 'onnx').
         """
+        if model_format is None and format is not None:
+            model_format = format
         cfg = {}
         if model_path is None or conf is None or imgsz is None or model_format is None:
             try:
