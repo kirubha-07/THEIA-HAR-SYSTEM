@@ -46,9 +46,13 @@ from perception.grasp_detector import GraspDetector, GraspEvent
 from fsm.experiment_fsm import ExperimentFSM
 from alerts.voice_alert import VoiceAlert
 
+try:
+    from paths import BENCHMARKS_DIR, CONFIG_DIR
+except ImportError:
+    from har_system.paths import BENCHMARKS_DIR, CONFIG_DIR
 
-RESULTS_DIR = os.path.join(os.path.dirname(__file__), "benchmarks")
-RESULTS_CSV = os.path.join(RESULTS_DIR, "fps_results.csv")
+RESULTS_DIR = str(BENCHMARKS_DIR)
+RESULTS_CSV = str(BENCHMARKS_DIR / "fps_results.csv")
 
 _CSV_FIELDS = [
     "timestamp",
@@ -82,7 +86,7 @@ def run_benchmark(duration_seconds: float, label: str) -> dict:
         debounce_frames=8,
     )
     
-    fsm = ExperimentFSM(os.path.join(os.path.dirname(__file__), "configs", "experiment_config.yaml"))
+    fsm = ExperimentFSM(str(CONFIG_DIR / "experiment_config.yaml"))
     voice_alert = VoiceAlert()
     
     # Instrumentation for latency

@@ -30,6 +30,11 @@ from server.stream_server import SharedState, StreamServer
 from gui.worker import PipelineWorker
 from gui.main_window import MainWindow
 
+try:
+    from paths import CONFIG_DIR
+except ImportError:
+    from har_system.paths import CONFIG_DIR
+
 
 # ── Constants ───────────────────────────────────────────────────────────
 # NOTE: must be <= YOLODetector's own `conf` threshold (0.5, set in
@@ -118,9 +123,7 @@ def main() -> None:
     print(f"[server] WebSocket state -> {ws_url}")
 
     # ── 4. Build config path ────────────────────────────────────────────
-    config_path = os.path.join(
-        os.path.dirname(__file__), "configs", "experiment_config.yaml"
-    )
+    config_path = str(CONFIG_DIR / "experiment_config.yaml")
 
     # ── 5. Create PipelineWorker ────────────────────────────────────────
     worker = PipelineWorker(
@@ -148,6 +151,15 @@ def main() -> None:
     # ── 9. Show window and enter event loop ─────────────────────────────
     window.show()
     print("[main] Phase 6 GUI launched. Close window to exit.")
+
+    auto_close = os.environ.get("HAR_AUTO_CLOSE")
+    if auto_close:
+        try:
+            sec = float(auto_close)
+            from PySide6.QtCore import QTimer
+            QTimer.singleShot(int(sec * 1000), window.close)
+        except ValueError:
+            pass
 
     exit_code = app.exec()
 

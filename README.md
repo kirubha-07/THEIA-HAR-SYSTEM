@@ -3,10 +3,10 @@
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python)
 ![OpenCV](https://img.shields.io/badge/OpenCV-4.11.0-green?style=for-the-badge&logo=opencv)
-![YOLOv8](https://img.shields.io/badge/YOLOv8n-ONNX_CPU-yellow?style=for-the-badge&logo=yolo)
+![YOLOv8](https://img.shields.io/badge/YOLOv8n-Ultralytics,_CPU-yellow?style=for-the-badge&logo=yolo)
 ![MediaPipe](https://img.shields.io/badge/MediaPipe-0.10.21-orange?style=for-the-badge&logo=google)
 ![PySide6](https://img.shields.io/badge/PySide6-GUI-blue?style=for-the-badge&logo=qt)
-![Status](https://img.shields.io/badge/Status-Flight_Ready-success?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Prototype-orange?style=for-the-badge)
 
 ## 📑 Abstract
 This repository contains a fully offline, CPU-optimized computer vision pipeline and Heads Up Display (HUD) designed for the Bharatiya Antariksha Station (BAS). The system acts as a deterministic, edge-native supervisor that monitors astronauts performing fixed-sequence experiments in microgravity. 
@@ -15,18 +15,26 @@ By decoupling spatial perception (YOLOv8n + MediaPipe) from a Neuro-Symbolic Fin
 
 ---
 
+## ⚠️ Current Status
+- **Trained detector**: NOT yet wired in (pipeline currently runs stock `yolov8n.pt`).
+- **Hardware benchmarking**: NVIDIA Jetson has not yet been benchmarked.
+- **Passive Path (CUSUM)**: Currently a plotted statistic with no threshold-triggered alarm.
+- **Evaluation**: No step-level quantitative evaluation has been conducted yet.
+
+---
+
 ## 🏗️ System Architecture
 
-The pipeline leverages a highly threaded PyQt6/PySide6 core (`PipelineWorker`) to guarantee that local archival, AI inference, GUI rendering, and audio engines never block the main thread.
+The pipeline leverages a highly threaded PySide6 core (`PipelineWorker`) to guarantee that local archival, AI inference, GUI rendering, and audio engines never block the main thread.
 
     [ Live Camera Feed (640x480) ]
            │
            ├─► 💾 Local Archival (XVID .avi) -> /recordings
            │
            ├─► 👁️ Perception Layer & Adaptive Calibration
-           │    ├─ YOLOv8n (ONNX CPU) -> Bounding Boxes
-           │    ├─ MediaPipe Hands    -> 3D Landmark Kinematics
-           │    └─ Passive Observer   -> Statistical Confidence CUSUM
+           │    ├─ YOLOv8n (Ultralytics, CPU) -> Bounding Boxes
+           │    ├─ MediaPipe Hands            -> 3D Landmark Kinematics
+           │    └─ Passive Observer           -> Statistical Confidence CUSUM
            │
            ├─► 🧠 Spatial Resolver & Neuro-Symbolic FSM
            │    ├─ Mathematical Pinch/Power Grasp
@@ -76,7 +84,10 @@ Due to strict C++ runtime dependencies and Windows/Linux UI interactions, this e
     source .venv/bin/activate  # Windows: .venv\Scripts\activate
     
     # 2. Install pinned dependencies
-    pip install -r requirements.txt
+    pip install -r har_system/requirements.txt
+
+    # 3. Launch the system
+    python har_system/main.py
 
 > **⚠️ Critical OS Notice (Linux/Ubuntu):** 
 > If you encounter a black screen during rendering due to Wayland compositor conflicts with OpenCV, force the X11 backend when executing:
@@ -88,21 +99,19 @@ Due to strict C++ runtime dependencies and Windows/Linux UI interactions, this e
 
 | Directory/File | Purpose |
 | :--- | :--- |
-| `configs/` | YAML manifests defining strict step-by-step experiment sequences. |
-| `capture/` | Hardware I/O. Handles the webcam and zero-latency XVID archival. |
-| `perception/` | Decoupled vision wrappers, kinematic intent predictors, and adaptive EMA calibrators. |
-| `fsm/` | The deterministic finite state machine handling YAML logic. |
-| `gui/` | The PyQt6/PySide6 main thread and `PipelineWorker` loop. |
-| `alerts/` | Alert matrix, haptics, Priority TTS Queue, and ack-trackers. |
-| `recordings/` | Automatically generated directory for raw `.avi` flight logs. |
-| `logging_/` | Append-only structured JSONL telemetry tracking for pipeline evaluation. |
-| `server/` | Thread-safe FastAPI MJPEG streamer for external dashboards. |
+| `har_system/configs/` | YAML manifests defining strict step-by-step experiment sequences. |
+| `har_system/capture/` | Hardware I/O. Handles the webcam and zero-latency XVID archival. |
+| `har_system/perception/` | Decoupled vision wrappers, kinematic intent predictors, and adaptive EMA calibrators. |
+| `har_system/fsm/` | The deterministic finite state machine handling YAML logic. |
+| `har_system/gui/` | The PySide6 main thread and `PipelineWorker` loop. |
+| `har_system/alerts/` | Alert matrix, haptics, Priority TTS Queue, and ack-trackers. |
+| `har_system/recordings/` | Automatically generated directory for raw `.avi` flight logs. |
+| `har_system/logging_/` | Append-only structured JSONL telemetry tracking for pipeline evaluation. |
+| `har_system/server/` | Thread-safe FastAPI MJPEG streamer for external dashboards. |
 
 ---
 
-## 📊 Telemetry & Compliance
+## 📊 Telemetry & Logging
 
-This system fulfills all explicit requirements of ISRO PS 26174:
 1.  **Local Archival:** Every raw frame is committed to an `.avi` video file *before* inference pollution.
-2.  **Auditable Logs:** All state transitions and out-of-sequence anomalies are appended locally to an immutable JSONL file.
-3.  **Low Latency:** Extensive instrumentation guarantees an end-to-end event resolution (Grasp Confirmation -> HUD Element -> Multi-thread Alert Generation -> Voice TTS Execution) of `<1.0ms`.
+2.  **Auditable Logs:** All state transitions and out-of-sequence anomalies are appended locally to an append-only JSONL file.

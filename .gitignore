@@ -122,8 +122,10 @@ celerybeat.pid
 # Environments
 .env
 .venv
+.venv*/
 env/
 venv/
+venv*/
 ENV/
 env.bak/
 venv.bak/
@@ -164,7 +166,11 @@ cython_debug/
 *.blend2
 
 # HAR System — Phase 1+
-har_system/recordings/*.avi
-har_system/recordings/*.mp4
+profiles.json
+har_system/profiles.json
+har_system/recordings/*
+!har_system/recordings/.gitkeep
+logs/
+har_system/logs/*.jsonl
 *.pt
 *.onnx
