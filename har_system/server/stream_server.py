@@ -44,23 +44,62 @@ class SharedState:
         self._lock = threading.Lock()
         self._frame: bytes | None = None
         self._fsm_state: dict = {}
+        self._encode_count: int = 0
+        self._client_checker: object | None = None
+        self._client_count: int = 0
+
+    @property
+    def encode_counter(self) -> int:
+        """Return the total number of frames JPEG-encoded so far."""
+        with self._lock:
+            return self._encode_count
+
+    @property
+    def encode_count(self) -> int:
+        """Alias for encode_counter."""
+        with self._lock:
+            return self._encode_count
+
+    def register_client_checker(self, checker: object) -> None:
+        """Register a callable that returns active stream client count."""
+        self._client_checker = checker
+
+    def set_client_count(self, count: int) -> None:
+        """Manually override active client count (useful for testing)."""
+        with self._lock:
+            self._client_count = count
+
+    def has_clients(self) -> bool:
+        """Return True if at least one client is connected/requesting frames."""
+        if self._client_checker is not None:
+            try:
+                if self._client_checker() > 0:
+                    return True
+            except Exception:
+                pass
+        with self._lock:
+            return self._client_count > 0
 
     # ── Frame (JPEG bytes) ──────────────────────────────────────────────
 
     def update_frame(self, frame: np.ndarray) -> None:
-        """Encode *frame* (BGR numpy array) to JPEG and store the bytes.
+        """Encode *frame* (BGR numpy array) to JPEG only if at least one client is connected.
 
         Parameters
         ----------
         frame : np.ndarray
             OpenCV BGR image from the main loop.
         """
+        if not self.has_clients():
+            return
+
         success, buf = cv2.imencode(
             ".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, 80]
         )
         if success:
             with self._lock:
                 self._frame = buf.tobytes()
+                self._encode_count += 1
 
     def get_frame(self) -> bytes | None:
         """Return the most recent JPEG-encoded frame bytes, or ``None``
@@ -120,12 +159,29 @@ class StreamServer:
         )
         self._client_lock = threading.Lock()
         self._active_clients = 0
+        self._active_stream_clients = 0
+        self.shared_state.register_client_checker(self.get_stream_client_count)
         self._register_routes()
 
     def get_client_count(self) -> int:
         """Return the current number of active streaming/websocket clients."""
         with self._client_lock:
             return self._active_clients
+
+    def get_stream_client_count(self) -> int:
+        """Return the current number of active MJPEG streaming clients."""
+        with self._client_lock:
+            return self._active_stream_clients
+
+    def _inc_stream_client(self) -> None:
+        with self._client_lock:
+            self._active_stream_clients += 1
+            self._active_clients += 1
+
+    def _dec_stream_client(self) -> None:
+        with self._client_lock:
+            self._active_stream_clients = max(0, self._active_stream_clients - 1)
+            self._active_clients = max(0, self._active_clients - 1)
 
     def _inc_client(self) -> None:
         with self._client_lock:
@@ -171,6 +227,11 @@ class StreamServer:
             """Return the current FSM state as JSON."""
             return JSONResponse(self.shared_state.get_fsm_state())
 
+        @self.app.get("/encode_count")
+        async def encode_count() -> JSONResponse:
+            """Return the count of encoded JPEG frames."""
+            return JSONResponse({"encode_count": self.shared_state.encode_count})
+
         @self.app.websocket("/ws")
         async def websocket_state(ws: WebSocket) -> None:
             """WebSocket that pushes FSM state JSON every ~0.1 s."""
@@ -198,14 +259,14 @@ class StreamServer:
         """Yield JPEG frames wrapped in MJPEG multipart boundaries.
 
         Runs at up to ~30 Hz.  If no frame is available yet the
-        generator sleeps 0.1 s and retries.
+        generator sleeps 0.05 s and retries.
         """
-        self._inc_client()
+        self._inc_stream_client()
         try:
             while True:
                 frame_bytes = self.shared_state.get_frame()
                 if frame_bytes is None:
-                    time.sleep(0.1)
+                    time.sleep(0.05)
                     continue
                 yield (
                     b"--frame\r\n"
@@ -215,7 +276,7 @@ class StreamServer:
                 )
                 time.sleep(0.033)  # ≈30 Hz ceiling
         finally:
-            self._dec_client()
+            self._dec_stream_client()
 
     # ------------------------------------------------------------------
     # Thread management

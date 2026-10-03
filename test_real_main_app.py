@@ -17,7 +17,7 @@ from gui.main_window import MainWindow
 
 def test_real_app_clean_launch():
     print("[TEST REAL APP] Initializing actual QApplication...")
-    app = QApplication(sys.argv)
+    app = QApplication.instance() or QApplication(sys.argv)
 
     print("[TEST REAL APP] Initializing SharedState and StreamServer...")
     shared_state = SharedState()

@@ -26,6 +26,7 @@ class CameraCapture:
         width: int = 640,
         height: int = 480,
         fps: int = 20,
+        logger: object | None = None,
     ) -> None:
         """Open the webcam and configure capture properties.
 
@@ -39,6 +40,8 @@ class CameraCapture:
             Desired capture height in pixels.
         fps : int
             Target frames-per-second for both capture and archival.
+        logger : object, optional
+            Session logger instance to record events.
         """
         import sys
 
@@ -73,6 +76,7 @@ class CameraCapture:
         self._height = height
         self._fps = fps
 
+        self._logger = logger
         self._writer: cv2.VideoWriter | None = None
         self._recording_path: str | None = None
 
@@ -80,20 +84,36 @@ class CameraCapture:
     # Public API
     # ------------------------------------------------------------------
 
-    def start_recording(self) -> str:
-        """Create a new timestamped AVI file in ``recordings/`` and begin writing.
+    def start_recording(
+        self,
+        recording_path: str | None = None,
+        logger: object | None = None,
+    ) -> str:
+        """Create a new timestamped AVI file in ``recordings/`` (or custom path) and begin writing.
+
+        Parameters
+        ----------
+        recording_path : str, optional
+            Explicit path for the recording. If None, creates a timestamped file in ``recordings/``.
+        logger : object, optional
+            Session logger instance to record RECORDING_FAILED event if initialization fails.
 
         Returns
         -------
         str
             Absolute path to the newly created recording file.
         """
-        recordings_dir = str(RECORDINGS_DIR)
-        os.makedirs(recordings_dir, exist_ok=True)
+        if logger is not None:
+            self._logger = logger
 
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"session_{timestamp}.avi"
-        self._recording_path = os.path.join(recordings_dir, filename)
+        if recording_path is not None:
+            self._recording_path = recording_path
+        else:
+            recordings_dir = str(RECORDINGS_DIR)
+            os.makedirs(recordings_dir, exist_ok=True)
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"session_{timestamp}.avi"
+            self._recording_path = os.path.join(recordings_dir, filename)
 
         fourcc = cv2.VideoWriter_fourcc(*"XVID")
         self._writer = cv2.VideoWriter(
@@ -114,8 +134,20 @@ class CameraCapture:
             )
 
         if not self._writer.isOpened():
-            print(f"[CameraCapture] Warning: VideoWriter could not be opened. Recording disabled.")
+            print(f"[CameraCapture] ERROR: VideoWriter could not be opened for '{self._recording_path}'. Recording disabled.")
             self._writer = None
+            if self._logger is not None:
+                if hasattr(self._logger, "log_recording_failed"):
+                    self._logger.log_recording_failed(path=self._recording_path, error="VideoWriter failed to open")
+                elif hasattr(self._logger, "_write"):
+                    self._logger._write(
+                        {
+                            "event": "RECORDING_FAILED",
+                            "timestamp": datetime.now().isoformat(),
+                            "path": self._recording_path,
+                            "error": "VideoWriter failed to open",
+                        }
+                    )
         else:
             print(f"[CameraCapture] Recording -> {self._recording_path}")
         return self._recording_path
@@ -131,8 +163,8 @@ class CameraCapture:
         success, frame = self._cap.read()
         return success, frame
 
-    def write(self, frame: "cv2.typing.MatLike") -> None:
-        """Write a **raw** frame to the active VideoWriter.
+    def write_frame(self, frame: "cv2.typing.MatLike") -> None:
+        """Write a **raw** frame to the active VideoWriter. Safe no-op if writer is None.
 
         This must be called *before* any inference or annotation is applied
         so that the archival file contains unmodified footage.
@@ -143,7 +175,14 @@ class CameraCapture:
             The raw BGR frame straight from the webcam.
         """
         if self._writer is not None and self._writer.isOpened():
-            self._writer.write(frame)
+            try:
+                self._writer.write(frame)
+            except Exception as e:
+                print(f"[CameraCapture] Warning: failed to write frame: {e}")
+
+    def write(self, frame: "cv2.typing.MatLike") -> None:
+        """Write a raw frame to the active VideoWriter (alias for write_frame)."""
+        self.write_frame(frame)
 
     def release(self) -> None:
         """Release the webcam and finalise any open recording file."""

@@ -231,6 +231,25 @@ class SessionLogger:
             }
         )
 
+    def log_recording_failed(self, path: str = "", error: str = "") -> None:
+        """Log a ``RECORDING_FAILED`` event when VideoWriter fails to open.
+
+        Parameters
+        ----------
+        path : str
+            The path where recording failed.
+        error : str
+            Error description or reason for failure.
+        """
+        self._write(
+            {
+                "event": "RECORDING_FAILED",
+                "timestamp": datetime.now().isoformat(),
+                "path": path,
+                "error": error,
+            }
+        )
+
     def log_intent_predicted(self, prediction: IntentPrediction) -> None:
         """Log an ``INTENT_PREDICTED`` event — Phase 4's geometric
         heuristic flagging a likely-wrong reach target before any grasp

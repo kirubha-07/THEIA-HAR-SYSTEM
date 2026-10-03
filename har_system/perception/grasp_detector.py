@@ -51,6 +51,7 @@ coordinates using ``frame_w`` and ``frame_h`` passed into
 from __future__ import annotations
 
 import math
+import os
 from dataclasses import dataclass
 
 from perception.hand_tracker import HandResult
@@ -509,14 +510,15 @@ class GraspDetector:
                 ]
 
             # [DEBUG] Grasp-confidence checkpoint (Phase 0 diagnostic point 1)
-            print(
-                f"[DEBUG][grasp] hand={hand_idx} grip={grip_type} "
-                f"pinch_dist={pinch_dist:.4f} "
-                f"pinch_closed={pinch_closed} "
-                f"power_pose={power_grip_pose} "
-                f"prox_thresh={prox_threshold:.3f} "
-                f"n_candidates={len(candidates)}"
-            )
+            if os.environ.get("THEIA_DEBUG", "0") == "1":
+                print(
+                    f"[DEBUG][grasp] hand={hand_idx} grip={grip_type} "
+                    f"pinch_dist={pinch_dist:.4f} "
+                    f"pinch_closed={pinch_closed} "
+                    f"power_pose={power_grip_pose} "
+                    f"prox_thresh={prox_threshold:.3f} "
+                    f"n_candidates={len(candidates)}"
+                )
 
             best_det = self._select_best_candidate(
                 ref_x, ref_y, candidates, proximity_threshold=prox_threshold
@@ -533,11 +535,12 @@ class GraspDetector:
                     state.debounce_counter = 0
                     if state.active_grasp is not None:
                         # [DEBUG] Release-event checkpoint (Phase 0 diagnostic point 2)
-                        print(
-                            f"[DEBUG][release] hand={hand_idx} "
-                            f"releasing '{state.active_grasp.object_class}' "
-                            f"(candidate changed to '{obj_class}')"
-                        )
+                        if os.environ.get("THEIA_DEBUG", "0") == "1":
+                            print(
+                                f"[DEBUG][release] hand={hand_idx} "
+                                f"releasing '{state.active_grasp.object_class}' "
+                                f"(candidate changed to '{obj_class}')"
+                            )
                         release_events.append(
                             ReleaseEvent(
                                 hand_index=hand_idx,
@@ -573,11 +576,12 @@ class GraspDetector:
                 # ── Step 6 (release on proximity loss) ─────────────────
                 if state.active_grasp is not None:
                     # [DEBUG] Release-event checkpoint (Phase 0 diagnostic point 2)
-                    print(
-                        f"[DEBUG][release] hand={hand_idx} "
-                        f"releasing '{state.active_grasp.object_class}' "
-                        f"(proximity loss — best_det=None, grip={grip_type})"
-                    )
+                    if os.environ.get("THEIA_DEBUG", "0") == "1":
+                        print(
+                            f"[DEBUG][release] hand={hand_idx} "
+                            f"releasing '{state.active_grasp.object_class}' "
+                            f"(proximity loss — best_det=None, grip={grip_type})"
+                        )
                     release_events.append(
                         ReleaseEvent(
                             hand_index=hand_idx,
@@ -593,11 +597,12 @@ class GraspDetector:
                 state = self._hand_states[hand_idx]
                 if state.active_grasp is not None:
                     # [DEBUG] Release-event checkpoint (Phase 0 diagnostic point 2)
-                    print(
-                        f"[DEBUG][release] hand={hand_idx} "
-                        f"releasing '{state.active_grasp.object_class}' "
-                        f"(hand disappeared from frame)"
-                    )
+                    if os.environ.get("THEIA_DEBUG", "0") == "1":
+                        print(
+                            f"[DEBUG][release] hand={hand_idx} "
+                            f"releasing '{state.active_grasp.object_class}' "
+                            f"(hand disappeared from frame)"
+                        )
                     release_events.append(
                         ReleaseEvent(
                             hand_index=hand_idx,

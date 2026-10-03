@@ -177,3 +177,5 @@ har_system/logs/*.jsonl
 !har_system/models/theia_yolov8n.pt
 !har_system/models/theia_yolov8n.onnx
 har_system/models/*.data
+/bug1_step_advance_proof.png
+/real_app_verified.png
