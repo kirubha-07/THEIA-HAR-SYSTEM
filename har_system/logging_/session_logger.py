@@ -22,6 +22,11 @@ from fsm.experiment_fsm import FSMEvent
 from perception.grasp_detector import GraspEvent, ReleaseEvent
 from perception.intent_predictor import IntentPrediction
 
+try:
+    from paths import LOGS_DIR
+except ImportError:
+    from har_system.paths import LOGS_DIR
+
 
 class SessionLogger:
     """Structured JSONL session logger.
@@ -36,14 +41,15 @@ class SessionLogger:
     """
 
     def __init__(
-        self, log_dir: str = "logs", experiment_name: str = "unknown"
+        self, log_dir: str | None = None, experiment_name: str = "unknown"
     ) -> None:
-        os.makedirs(log_dir, exist_ok=True)
+        log_dir_str = str(LOGS_DIR) if log_dir is None else str(log_dir)
+        os.makedirs(log_dir_str, exist_ok=True)
 
         self._start_time: float = time.time()
         self._session_ts: str = datetime.now().strftime("%Y%m%d_%H%M%S")
         self._filename: str = os.path.join(
-            log_dir, f"session_{self._session_ts}.jsonl"
+            log_dir_str, f"session_{self._session_ts}.jsonl"
         )
         self._experiment_name: str = experiment_name
 

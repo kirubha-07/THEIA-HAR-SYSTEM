@@ -30,6 +30,12 @@ from gui.pages.common import (
 )
 
 
+try:
+    from paths import PROFILES_PATH
+except ImportError:
+    from har_system.paths import PROFILES_PATH
+
+
 class SettingsDialog(QDialog):
     """Mission Settings & Astronaut Profile Manager."""
 
@@ -38,7 +44,7 @@ class SettingsDialog(QDialog):
         self.setWindowTitle("Mission Control Settings & Astronaut Profiles")
         self.setFixedSize(480, 420)
         self._worker = worker
-        self._profiles_file = "profiles.json"
+        self._profiles_file = str(PROFILES_PATH)
 
         self.setStyleSheet(f"""
             QDialog {{

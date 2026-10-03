@@ -11,6 +11,11 @@ from datetime import datetime
 
 import cv2
 
+try:
+    from paths import RECORDINGS_DIR
+except ImportError:
+    from har_system.paths import RECORDINGS_DIR
+
 
 class CameraCapture:
     """Manages a single webcam feed and an associated VideoWriter for archival."""
@@ -83,10 +88,7 @@ class CameraCapture:
         str
             Absolute path to the newly created recording file.
         """
-        recordings_dir = os.path.join(
-            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-            "recordings",
-        )
+        recordings_dir = str(RECORDINGS_DIR)
         os.makedirs(recordings_dir, exist_ok=True)
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")

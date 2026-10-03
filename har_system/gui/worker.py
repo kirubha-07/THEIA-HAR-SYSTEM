@@ -51,6 +51,10 @@ from logging_.session_logger import SessionLogger
 from server.stream_server import SharedState
 from server.uplink_queue import UplinkQueue
 from capture.health_monitor import detect_health_device
+try:
+    from paths import BASE_DIR, LOGS_DIR, PROFILES_PATH
+except ImportError:
+    from har_system.paths import BASE_DIR, LOGS_DIR, PROFILES_PATH
 
 
 class PipelineWorker(QThread):
@@ -154,7 +158,7 @@ class PipelineWorker(QThread):
         self.ack_tracker = AcknowledgmentTracker(window_seconds=5.0)
         
         import json
-        profiles_path = "profiles.json"
+        profiles_path = str(PROFILES_PATH)
         self._pinch_default = self.grasp_detector.pinch_threshold
         self._conf_default = min_conf
         try:
@@ -172,7 +176,7 @@ class PipelineWorker(QThread):
             default_min_conf=self._conf_default,
         )
         self.logger = SessionLogger(
-            log_dir="logs", experiment_name=self.fsm._experiment_name
+            log_dir=str(LOGS_DIR), experiment_name=self.fsm._experiment_name
         )
 
         # ── Proportional alerting engine (Phase 3) ──────────────────────
@@ -656,7 +660,7 @@ class PipelineWorker(QThread):
                         "default_pinch_threshold": state.get("ema_pinch", self._pinch_default),
                         "default_min_conf": state.get("ema_confidence", self._conf_default)
                     }
-                    with open("profiles.json", "w") as f:
+                    with open(str(PROFILES_PATH), "w") as f:
                         json.dump(prof, f)
             except Exception as e:
                 print(f"[worker] Failed to save persistent profile: {e}")
@@ -907,7 +911,7 @@ class PipelineWorker(QThread):
             avg_hr = sum(hrs)/len(hrs) if hrs else 0.0
             
             ts_str = datetime.now().strftime("%Y%m%d_%H%M%S")
-            export_path = os.path.join("logs", f"summary_{ts_str}.md")
+            export_path = str(LOGS_DIR / f"summary_{ts_str}.md")
             with open(export_path, "w") as f:
                 f.write(f"# Session Summary\\n\\n")
                 f.write(f"- **Elapsed Time**: {elapsed:.1f}s\\n")

@@ -19,6 +19,10 @@ from PySide6.QtWidgets import (
 )
 
 from fsm.experiment_fsm import FSMEvent, FSMEventType
+try:
+    from paths import CONFIG_DIR
+except ImportError:
+    from har_system.paths import CONFIG_DIR
 from gui.pages.common import (
     BaseSubscriberPage,
     create_card,
@@ -42,9 +46,9 @@ from gui.pages.common import (
 class ExperimentsLogsPage(BaseSubscriberPage):
     """Page 6: Experiments, Protocol Configuration & Full Session Log History."""
 
-    def __init__(self, config_path: str = "har_system/configs/experiment_config.yaml", parent: QWidget | None = None) -> None:
+    def __init__(self, config_path: str | None = None, parent: QWidget | None = None) -> None:
         super().__init__(parent)
-        self._config_path = config_path
+        self._config_path = config_path or str(CONFIG_DIR / "experiment_config.yaml")
         self._worker = None
 
         self._setup_ui()
