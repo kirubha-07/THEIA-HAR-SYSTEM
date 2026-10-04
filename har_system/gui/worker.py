@@ -28,6 +28,7 @@ import cv2
 # ── End mandatory imports ───────────────────────────────────────────────
 
 import os
+from pathlib import Path
 import threading
 import time
 
@@ -125,17 +126,23 @@ class PipelineWorker(QThread):
         # silently hides real detections from the FSM/grasp pipeline while
         # they still appear in the [detect] console log.
         min_conf: float = 0.5,
+        profiles_path: str | Path | None = None,
     ) -> None:
         super().__init__()
         self._config_path = config_path
         self._shared_state = shared_state
-        self._min_conf = min_conf
+        self._profiles_path = Path(profiles_path) if profiles_path is not None else None
+
+        # Fixed config defaults — never replaced by persistent profiles
+        self._pinch_default = 0.07
+        self._power_grip_prox_default = 0.15
+        self._conf_default = float(min_conf)
 
         # ── Instantiate all pipeline objects in __init__ ────────────────
         video_source = os.getenv("TEST_VIDEO_PATH")
         cam_index = video_source if video_source else 0
         self.camera = CameraCapture(cam_index=cam_index, width=640, height=480, fps=20)
-        self.detector = YOLODetector(conf=self._min_conf)
+        self.detector = YOLODetector(conf=self._conf_default)
         self.hand_tracker = HandTracker(
             max_hands=2,
             detection_confidence=0.7,
@@ -144,38 +151,93 @@ class PipelineWorker(QThread):
         self.fsm = ExperimentFSM(config_path=config_path)
         self.grasp_detector = GraspDetector(
             proximity_threshold=0.08,
-            # Power-grip proximity is wider: the palm centre sits
-            # 0.10–0.15 normalised units above/around a box-sized object.
-            # The old single 0.08 threshold was the Phase 0 root cause
-            # (confirmed by diagnostic logging: power-grip detections
-            # silently failed the proximity check on every box grasp).
-            power_grip_proximity_threshold=0.15,
-            pinch_threshold=0.07,
+            power_grip_proximity_threshold=self._power_grip_prox_default,
+            pinch_threshold=self._pinch_default,
             debounce_frames=8,
             context_objects=self.fsm.context_objects,
         )
         self.voice_alert = VoiceAlert(rate=195, volume=1.0)
         self.gesture_recognizer = GestureRecognizer(debounce_frames=8)
         self.ack_tracker = AcknowledgmentTracker(window_seconds=5.0)
-        
-        import json
-        profiles_path = str(PROFILES_PATH)
-        self._pinch_default = self.grasp_detector.pinch_threshold
-        self._conf_default = min_conf
-        try:
-            if os.path.exists(profiles_path):
-                with open(profiles_path, "r") as f:
-                    prof = json.load(f)
-                    self._pinch_default = prof.get("default_pinch_threshold", self._pinch_default)
-                    self._conf_default = prof.get("default_min_conf", self._conf_default)
-                    print(f"Loaded Persistent Cal Profile: Pinch={self._pinch_default:.3f} Conf={self._conf_default:.2f}")
-        except Exception:
-            pass
 
+        # Calibration defaults come strictly from config (never loaded as defaults)
         self.calibration = AdaptiveCalibration(
             default_pinch_threshold=self._pinch_default,
             default_min_conf=self._conf_default,
         )
+
+        # Optional persistence stores observations as seeds only:
+        # {astronaut, ema_pinch, ema_confidence, grasp_count}
+        import json
+        self._profile_warning: str | None = None
+        self._profile_ignored: bool = False
+
+        profiles_to_check: list[Path] = []
+        if self._profiles_path is not None:
+            profiles_to_check.append(self._profiles_path)
+        profiles_to_check.extend([PROFILES_PATH, BASE_DIR.parent / "profiles.json"])
+
+        loaded_profile: dict | None = None
+        for p_path in profiles_to_check:
+            if p_path.exists():
+                try:
+                    with open(p_path, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                        if isinstance(data, dict):
+                            loaded_profile = data
+                            break
+                except Exception as e:
+                    print(f"[calibration] Error reading profile from {p_path}: {e}")
+
+        if loaded_profile is not None:
+            raw_pinch = loaded_profile.get("ema_pinch")
+            if raw_pinch is None:
+                raw_pinch = loaded_profile.get("default_pinch_threshold")
+
+            raw_conf = loaded_profile.get("ema_confidence")
+            if raw_conf is None:
+                raw_conf = loaded_profile.get("default_min_conf")
+
+            raw_pg = loaded_profile.get("power_grip_proximity_threshold")
+
+            out_of_bounds = False
+            if raw_pinch is not None and not (0.04 <= float(raw_pinch) <= 0.12):
+                out_of_bounds = True
+            if raw_conf is not None and not (0.40 <= float(raw_conf) <= 0.60):
+                out_of_bounds = True
+            if raw_pg is not None and not (0.10 <= float(raw_pg) <= 0.20):
+                out_of_bounds = True
+
+            if out_of_bounds:
+                self._profile_warning = (
+                    f"Persistent profile values outside valid ranges ([0.04, 0.12] for pinch, "
+                    f"[0.40, 0.60] for min_conf, [0.10, 0.20] for power grip); ignoring profile: {loaded_profile}"
+                )
+                self._profile_ignored = True
+                print(f"[calibration] Warning: {self._profile_warning}")
+            else:
+                seed_pinch = loaded_profile.get("ema_pinch")
+                seed_conf = loaded_profile.get("ema_confidence")
+                seed_count = int(loaded_profile.get("grasp_count", 0))
+                if seed_pinch is not None or seed_conf is not None:
+                    self.calibration.seed(
+                        ema_pinch=float(seed_pinch) if seed_pinch is not None else None,
+                        ema_confidence=float(seed_conf) if seed_conf is not None else None,
+                        grasp_count=seed_count,
+                    )
+                    print(
+                        f"[calibration] Seeded EMAs from persistent profile: "
+                        f"pinch={seed_pinch}, conf={seed_conf}, count={seed_count}"
+                    )
+
+        # Initial live thresholds in force (clamped)
+        thresholds = self.calibration.get_thresholds()
+        self.grasp_detector.pinch_threshold = min(max(thresholds.pinch_threshold, 0.04), 0.12)
+        self.grasp_detector.power_grip_proximity_threshold = min(
+            max(self._power_grip_prox_default, 0.10), 0.20
+        )
+        self._min_conf = min(max(thresholds.min_conf, 0.40), 0.60)
+
         self.logger = SessionLogger(
             log_dir=str(LOGS_DIR),
             experiment_name=self.fsm._experiment_name,
@@ -184,6 +246,18 @@ class PipelineWorker(QThread):
                 "classes": self.detector.classes,
                 "imgsz": self.detector.imgsz,
                 "format": self.detector.model_format,
+            },
+            calibration_info={
+                "pinch_threshold": self.grasp_detector.pinch_threshold,
+                "power_grip_proximity_threshold": self.grasp_detector.power_grip_proximity_threshold,
+                "min_conf": self._min_conf,
+                "thresholds_in_force": {
+                    "pinch_threshold": self.grasp_detector.pinch_threshold,
+                    "power_grip_proximity_threshold": self.grasp_detector.power_grip_proximity_threshold,
+                    "min_conf": self._min_conf,
+                },
+                "profile_warning": self._profile_warning,
+                "profile_ignored": self._profile_ignored,
             },
         )
 
@@ -391,20 +465,14 @@ class PipelineWorker(QThread):
                         confidence=ge.object_confidence,
                     )
                     thresholds = self.calibration.get_thresholds()
-                    # Use the property setter so the backing _pinch_threshold
-                    # is actually updated.  The pre-Phase-2 code wrote to
-                    # self.grasp_detector.pinch_threshold which silently
-                    # created a phantom public attribute and left the private
-                    # field (which check_grasp reads) permanently at 0.07.
-                    self.grasp_detector.pinch_threshold = thresholds.pinch_threshold
-                    # Scale the power-grip proximity threshold proportionally
-                    # so both windows track the same EMA drift.  Ratio of
-                    # startup values: 0.15 / 0.07 ~= 2.14.
-                    _PGPT_RATIO = 0.15 / 0.07
-                    self.grasp_detector.power_grip_proximity_threshold = (
-                        thresholds.pinch_threshold * _PGPT_RATIO
+                    # Clamped live thresholds: pinch in [0.04, 0.12], min_conf in [0.40, 0.60].
+                    # Power-grip proximity threshold is NOT derived from the pinch threshold
+                    # and stays clamped in [0.10, 0.20].
+                    self.grasp_detector.pinch_threshold = min(max(thresholds.pinch_threshold, 0.04), 0.12)
+                    self.grasp_detector.power_grip_proximity_threshold = min(
+                        max(self.grasp_detector.power_grip_proximity_threshold, 0.10), 0.20
                     )
-                    self._min_conf = thresholds.min_conf
+                    self._min_conf = min(max(thresholds.min_conf, 0.40), 0.60)
                     if meaningful_shift:
                         state = self.calibration.get_state()
                         self.logger.log_calibration_updated(state)
@@ -663,17 +731,21 @@ class PipelineWorker(QThread):
                 )
             print("=" * 50)
             
-            # Save profile on exit
+            # Save profile on exit: seed observations only, written only when grasp_count >= 5
             try:
                 import json
                 state = self.calibration.get_state()
-                if state.get("status") == "calibrated" and state.get("ema_pinch"):
+                if state.get("grasp_count", 0) >= 5 and state.get("ema_pinch") is not None:
                     prof = {
-                        "default_pinch_threshold": state.get("ema_pinch", self._pinch_default),
-                        "default_min_conf": state.get("ema_confidence", self._conf_default)
+                        "astronaut": getattr(self, "astronaut_name", "Astronaut 01"),
+                        "ema_pinch": state.get("ema_pinch"),
+                        "ema_confidence": state.get("ema_confidence"),
+                        "grasp_count": state.get("grasp_count", 0),
                     }
-                    with open(str(PROFILES_PATH), "w") as f:
-                        json.dump(prof, f)
+                    target_profile_path = self._profiles_path if self._profiles_path is not None else PROFILES_PATH
+                    with open(str(target_profile_path), "w", encoding="utf-8") as f:
+                        json.dump(prof, f, indent=2)
+                    print(f"[worker] Saved persistent calibration profile to {target_profile_path}: {prof}")
             except Exception as e:
                 print(f"[worker] Failed to save persistent profile: {e}")
 
@@ -703,17 +775,14 @@ class PipelineWorker(QThread):
         if self._recalibrate_flag.is_set():
             self.calibration.reset()
             thresholds = self.calibration.get_thresholds()
-            # Use property setters (not direct attribute writes) so the
-            # backing private fields are actually updated -- same fix as
-            # the observe_grasp path above.
-            self.grasp_detector.pinch_threshold = thresholds.pinch_threshold
-            _PGPT_RATIO = 0.15 / 0.07
-            self.grasp_detector.power_grip_proximity_threshold = (
-                thresholds.pinch_threshold * _PGPT_RATIO
+            # Return strictly to config defaults (pinch 0.07, power-grip prox 0.15, min_conf 0.5)
+            self.grasp_detector.pinch_threshold = min(max(thresholds.pinch_threshold, 0.04), 0.12)
+            self.grasp_detector.power_grip_proximity_threshold = min(
+                max(self._power_grip_prox_default, 0.10), 0.20
             )
-            self._min_conf = thresholds.min_conf
+            self._min_conf = min(max(thresholds.min_conf, 0.40), 0.60)
             self.logger.log_calibration_reset()
-            print("[CALIBRATION] Reset requested via GUI -- awaiting new grasps.")
+            print("[CALIBRATION] Reset requested via GUI -- returned to config defaults.")
             self.calibration_state_changed.emit(self.calibration.get_state())
             self._recalibrate_flag.clear()
 

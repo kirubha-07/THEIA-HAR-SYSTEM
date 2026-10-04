@@ -177,15 +177,14 @@ class GraspDetector:
     ) -> None:
         self._proximity_threshold = proximity_threshold
         self.context_objects: list[str] = list(context_objects or ["tray"])
-        # Power-grip path uses a wider window than precision pinch: the
-        # palm centre sits above/around the object and can be 0.10–0.15
-        # normalised units from the YOLO centroid on a box-sized object.
-        self._power_grip_proximity_threshold = (
+        # Power-grip proximity threshold is kept independent and clamped in [0.10, 0.20]
+        raw_pg_thresh = (
             power_grip_proximity_threshold
             if power_grip_proximity_threshold is not None
             else proximity_threshold
         )
-        self._pinch_threshold = pinch_threshold
+        self._power_grip_proximity_threshold = min(max(float(raw_pg_thresh), 0.10), 0.20)
+        self._pinch_threshold = min(max(float(pinch_threshold), 0.04), 0.12)
         self._debounce_frames = debounce_frames
         self._power_grip_enabled = power_grip_enabled
         self._object_memory_frames = object_memory_frames
@@ -205,27 +204,22 @@ class GraspDetector:
         """Current pinch-closure threshold. Settable at runtime so
         :class:`perception.adaptive_calibration.AdaptiveCalibration`
         can blend in a session-specific value without recreating this
-        detector (which would lose per-hand debounce state)."""
+        detector (which would lose per-hand debounce state). Clamped to [0.04, 0.12]."""
         return self._pinch_threshold
 
     @pinch_threshold.setter
     def pinch_threshold(self, value: float) -> None:
-        self._pinch_threshold = value
+        self._pinch_threshold = min(max(float(value), 0.04), 0.12)
 
     @property
     def power_grip_proximity_threshold(self) -> float:
-        """Current power-grip proximity threshold. Settable at runtime
-        so :class:`perception.adaptive_calibration.AdaptiveCalibration`
-        can scale it alongside ``pinch_threshold`` as the session EMA
-        drifts. The power-grip window is always kept proportionally
-        wider than the pinch threshold: caller is responsible for
-        maintaining the invariant
-        ``power_grip_proximity_threshold >= proximity_threshold``."""
+        """Current power-grip proximity threshold. Independent from
+        pinch threshold and clamped to [0.10, 0.20]."""
         return self._power_grip_proximity_threshold
 
     @power_grip_proximity_threshold.setter
     def power_grip_proximity_threshold(self, value: float) -> None:
-        self._power_grip_proximity_threshold = value
+        self._power_grip_proximity_threshold = min(max(float(value), 0.10), 0.20)
 
     # ------------------------------------------------------------------
     # Internal helpers — state / geometry

@@ -85,6 +85,7 @@ class SessionLogger:
         log_dir: str | None = None,
         experiment_name: str = "unknown",
         model_info: dict | None = None,
+        calibration_info: dict | None = None,
     ) -> None:
         log_dir_str = str(LOGS_DIR) if log_dir is None else str(log_dir)
         os.makedirs(log_dir_str, exist_ok=True)
@@ -124,6 +125,19 @@ class SessionLogger:
                 "imgsz": model_info.get("imgsz"),
                 "format": model_info.get("format"),
             })
+
+        if calibration_info is not None:
+            for k in ("pinch_threshold", "power_grip_proximity_threshold", "min_conf", "profile_warning", "profile_ignored"):
+                if k in calibration_info:
+                    start_event[k] = calibration_info[k]
+            start_event["thresholds_in_force"] = calibration_info.get(
+                "thresholds_in_force",
+                {
+                    "pinch_threshold": calibration_info.get("pinch_threshold"),
+                    "power_grip_proximity_threshold": calibration_info.get("power_grip_proximity_threshold"),
+                    "min_conf": calibration_info.get("min_conf"),
+                },
+            )
 
         # Write SESSION_START immediately
         self._write(start_event)

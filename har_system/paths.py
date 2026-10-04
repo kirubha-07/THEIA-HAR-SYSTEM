@@ -32,7 +32,11 @@ else:
 
 LOGS_DIR = BASE_DIR / "logs"
 RECORDINGS_DIR = BASE_DIR / "recordings"
-PROFILES_PATH = BASE_DIR / "profiles.json"
+env_profiles_path = os.environ.get("THEIA_PROFILES_PATH")
+if env_profiles_path:
+    PROFILES_PATH = Path(env_profiles_path).resolve()
+else:
+    PROFILES_PATH = BASE_DIR / "profiles.json"
 MODELS_DIR = BASE_DIR / "models"
 CONFIG_DIR = BASE_DIR / "configs"
 CONFIGS_DIR = CONFIG_DIR  # Convenience alias

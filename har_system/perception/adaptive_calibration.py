@@ -58,9 +58,13 @@ class AdaptiveCalibration:
         EMA fully.
     """
 
-    # Confidence threshold is never allowed to drift below this,
-    # regardless of what the session's EMA suggests.
-    MIN_CONF_FLOOR = 0.4
+    # Threshold bounds (Step 2c)
+    MIN_PINCH_FLOOR = 0.04
+    MAX_PINCH_CEIL = 0.12
+    MIN_CONF_FLOOR = 0.40
+    MAX_CONF_CEIL = 0.60
+    POWER_GRIP_PROXIMITY_FLOOR = 0.10
+    POWER_GRIP_PROXIMITY_CEIL = 0.20
 
     # Once converged, an EMA shift smaller than this (relative) is not
     # considered "meaningful" and won't trigger a CALIBRATION_UPDATED
@@ -115,6 +119,17 @@ class AdaptiveCalibration:
     # Public API
     # ------------------------------------------------------------------
 
+    def seed(
+        self,
+        ema_pinch: float | None = None,
+        ema_confidence: float | None = None,
+        grasp_count: int = 0,
+    ) -> None:
+        """Seed the EMAs from persistent observations without altering config defaults."""
+        self._ema_pinch = float(ema_pinch) if ema_pinch is not None else None
+        self._ema_confidence = float(ema_confidence) if ema_confidence is not None else None
+        self._grasp_count = int(grasp_count)
+
     def observe_grasp(
         self, pinch_distance: float | None, confidence: float
     ) -> bool:
@@ -162,8 +177,8 @@ class AdaptiveCalibration:
         -------
         CalibratedThresholds
             Safe defaults if no grasps observed yet; otherwise blended
-            per :attr:`_blend_weight`, confidence floored at
-            :attr:`MIN_CONF_FLOOR`.
+            per :attr:`_blend_weight`, with pinch clamped to [0.04, 0.12]
+            and confidence clamped to [0.40, 0.60].
         """
         pinch_threshold = self._default_pinch_threshold
         if self._ema_pinch is not None:
@@ -175,6 +190,7 @@ class AdaptiveCalibration:
                 self._blend_weight * target
                 + (1 - self._blend_weight) * self._default_pinch_threshold
             )
+        pinch_threshold = min(max(pinch_threshold, self.MIN_PINCH_FLOOR), self.MAX_PINCH_CEIL)
 
         min_conf = self._default_min_conf
         if self._ema_confidence is not None:
@@ -183,7 +199,7 @@ class AdaptiveCalibration:
                 self._blend_weight * target
                 + (1 - self._blend_weight) * self._default_min_conf
             )
-            min_conf = max(min_conf, self.MIN_CONF_FLOOR)
+        min_conf = min(max(min_conf, self.MIN_CONF_FLOOR), self.MAX_CONF_CEIL)
 
         return CalibratedThresholds(pinch_threshold=pinch_threshold, min_conf=min_conf)
 
