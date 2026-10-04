@@ -63,6 +63,8 @@ _CSV_FIELDS = [
     "hostname",
     "cpu",
     "power_plan",
+    "valid",
+    "invalid_reason",
 ]
 
 
@@ -281,6 +283,8 @@ def run_benchmark_video(
         "hostname": socket.gethostname(),
         "cpu": get_cpu_info(),
         "power_plan": active_power_plan,
+        "valid": True,
+        "invalid_reason": "",
     }
 
     print(f"[benchmark] Completed {processed_count} frames ({measured_frames} measured) in {total_pipeline_time:.2f}s:")

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-rerun_quarantined_benchmarks.py — re-run quarantined benchmark runs with clean reps.
+rerun_quarantined_benchmarks.py — re-run quarantined benchmark runs.
 
 Target combinations:
   - v1_standard.mp4 onnx @ 320: rep 4
@@ -10,7 +10,7 @@ Target combinations:
   - v1_standard.mp4 pt @ 640: reps 4, 5, 6
   - v2_occlusion.mp4 pt @ 640: reps 4, 5, 6
 
-Appends clean results to har_system/benchmarks/fps_results_clean.csv.
+Appends results to har_system/benchmarks/fps_results_clean.csv.
 """
 
 import argparse

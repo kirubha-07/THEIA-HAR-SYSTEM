@@ -2,7 +2,7 @@
 GraspDetector — pinch-closure / power-grip + spatial-proximity grasp
 detection.
 
-A grasp fires when a hand is in one of two poses AND that pose's
+A grasp fires when a hand is in one of two grip configurations AND that grip's
 reference point is spatially near an object:
 
 1. **Precision pinch** (original design): thumb-tip (P4) and index-tip
@@ -123,7 +123,7 @@ class _RecentObject:
 # ── Main class ───────────────────────────────────────────────────────────
 
 class GraspDetector:
-    """Detects object grasps by combining hand pose (pinch or power
+    """Detects object grasps by combining hand grip state (pinch or power
     grip) with spatial proximity, using per-hand debounce to suppress
     transient noise.
 
@@ -273,7 +273,7 @@ class GraspDetector:
         return math.sqrt((a["x"] - b["x"]) ** 2 + (a["y"] - b["y"]) ** 2)
 
     def _is_hand_closed(self, landmarks: list[dict]) -> bool:
-        """Power-grip pose check: index/middle/ring/pinky all curled
+        """Power-grip check: index/middle/ring/pinky all curled
         toward the wrist (fingertip closer to the wrist than that
         finger's PIP joint).
 
@@ -455,14 +455,14 @@ class GraspDetector:
             state = self._get_state(hand_idx)
             landmarks = hand_result.landmarks_list[hand_idx]["landmarks"]
 
-            # ── Step 3: Pose check — pinch OR power grip ────────────────
+            # ── Step 3: Grip check — pinch OR power grip ────────────────
             pinch_dist = hand_result.pinch_distances[hand_idx]
             pinch_closed = pinch_dist < self._pinch_threshold
-            power_grip_pose = (
+            power_grip_closed = (
                 self._power_grip_enabled and self._is_hand_closed(landmarks)
             )
 
-            if not pinch_closed and not power_grip_pose:
+            if not pinch_closed and not power_grip_closed:
                 # Fully open hand -> unconditionally reset debounce
                 state.debounce_counter = 0
                 state.candidate_object = None
@@ -515,7 +515,7 @@ class GraspDetector:
                     f"[DEBUG][grasp] hand={hand_idx} grip={grip_type} "
                     f"pinch_dist={pinch_dist:.4f} "
                     f"pinch_closed={pinch_closed} "
-                    f"power_pose={power_grip_pose} "
+                    f"power_grip={power_grip_closed} "
                     f"prox_thresh={prox_threshold:.3f} "
                     f"n_candidates={len(candidates)}"
                 )

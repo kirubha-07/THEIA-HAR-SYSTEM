@@ -150,23 +150,28 @@ def run_preflight() -> str:
 
 
 def print_summary(all_results: list[dict]) -> None:
-    """Print detailed per-clip and overall summary tables."""
+    """Print detailed per-clip and overall summary tables from valid runs."""
     configs = [
         ("PyTorch @ 320", "pt", 320),
         ("ONNX Runtime @ 320", "onnx", 320),
         ("PyTorch @ 640", "pt", 640),
     ]
 
-    print("\n" + "=" * 98)
-    print("DETAILED PER-CLIP BENCHMARK SUMMARY (3 REPETITIONS)")
-    print("=" * 98)
-    print(f"{'Format & Imgsz':<20} | {'Clip':<18} | {'Rep1 Med':<8} | {'Rep2 Med':<8} | {'Rep3 Med':<8} | {'Median':<8} | {'Spread':<8} | {'Worst p10':<9}")
-    print("-" * 98)
+    valid_results = [
+        r for r in all_results
+        if str(r.get("valid", "True")).strip().lower() in ("true", "1")
+    ]
+
+    print("\n" + "=" * 105)
+    print("DETAILED PER-CLIP BENCHMARK SUMMARY (VALID REPS)")
+    print("=" * 105)
+    print(f"{'Format & Imgsz':<20} | {'Clip':<18} | {'N Valid':<7} | {'Valid Reps (Med FPS)':<26} | {'Median':<8} | {'Spread':<8} | {'p10':<8}")
+    print("-" * 105)
 
     overall_rows = []
 
     for label, fmt, imgsz in configs:
-        cfg_results = [r for r in all_results if r["format"] == fmt and int(r["imgsz"]) == imgsz]
+        cfg_results = [r for r in valid_results if r["format"] == fmt and int(r["imgsz"]) == imgsz]
         if not cfg_results:
             continue
 
@@ -177,47 +182,47 @@ def print_summary(all_results: list[dict]) -> None:
 
         clip_medians = []
         clip_spreads = []
-        clip_worst_p10s = []
+        clip_p10s = []
 
         for clip in clips_seen:
             reps = [r for r in cfg_results if r["clip"] == clip]
             reps.sort(key=lambda x: int(x["rep"]))
+            n_valid = len(reps)
             meds = [float(r["median_fps"]) for r in reps]
             p10s = [float(r["p10_fps"]) for r in reps]
 
-            r1 = f"{meds[0]:.2f}" if len(meds) > 0 else "N/A"
-            r2 = f"{meds[1]:.2f}" if len(meds) > 1 else "N/A"
-            r3 = f"{meds[2]:.2f}" if len(meds) > 2 else "N/A"
+            rep_meds_str = ", ".join(f"r{r['rep']}:{float(r['median_fps']):.2f}" for r in reps)
 
             c_median = statistics.median(meds)
-            c_spread = max(meds) - min(meds)
-            c_worst_p10 = min(p10s)
+            c_spread = (max(meds) - min(meds)) if len(meds) > 1 else 0.0
+            c_p10 = min(p10s)
 
             clip_medians.append(c_median)
             clip_spreads.append(c_spread)
-            clip_worst_p10s.append(c_worst_p10)
+            clip_p10s.append(c_p10)
 
-            print(f"{label:<20} | {clip:<18} | {r1:<8} | {r2:<8} | {r3:<8} | {c_median:<8.2f} | {c_spread:<8.2f} | {c_worst_p10:<9.2f}")
+            print(f"{label:<20} | {clip:<18} | {n_valid:<7} | {rep_meds_str:<26} | {c_median:<8.2f} | {c_spread:<8.2f} | {c_p10:<8.2f}")
 
         overall_med = statistics.median(clip_medians)
-        overall_spread = statistics.mean(clip_spreads)
-        overall_worst_p10 = min(clip_worst_p10s)
+        overall_spread = statistics.mean(clip_spreads) if clip_spreads else 0.0
+        overall_p10 = min(clip_p10s) if clip_p10s else 0.0
         overall_rows.append({
             "label": label,
             "clips": len(clips_seen),
+            "valid_runs": len(cfg_results),
             "overall_median": overall_med,
-            "overall_worst_p10": overall_worst_p10,
+            "worst_p10": overall_p10,
             "mean_spread": overall_spread,
         })
 
-    print("\n" + "=" * 80)
-    print("OVERALL BENCHMARK SUMMARY TABLE")
-    print("=" * 80)
-    print(f"{'Format & Resolution':<22} | {'Clips':<6} | {'Overall Median (FPS)':<22} | {'Worst p10 (FPS)':<16} | {'Mean Spread (FPS)':<18}")
-    print("-" * 80)
+    print("\n" + "=" * 92)
+    print("OVERALL BENCHMARK SUMMARY TABLE (VALID RUNS)")
+    print("=" * 92)
+    print(f"{'Format & Resolution':<22} | {'Clips':<6} | {'Valid Runs':<10} | {'Overall Median (FPS)':<22} | {'Worst p10 (FPS)':<16} | {'Mean Spread (FPS)':<18}")
+    print("-" * 92)
     for row in overall_rows:
-        print(f"{row['label']:<22} | {row['clips']:<6} | {row['overall_median']:<22.2f} | {row['overall_worst_p10']:<16.2f} | {row['mean_spread']:<18.2f}")
-    print("=" * 80)
+        print(f"{row['label']:<22} | {row['clips']:<6} | {row['valid_runs']:<10} | {row['overall_median']:<22.2f} | {row['worst_p10']:<16.2f} | {row['mean_spread']:<18.2f}")
+    print("=" * 92)
 
 
 def load_existing_results(csv_path: str) -> tuple[set, list[dict]]:

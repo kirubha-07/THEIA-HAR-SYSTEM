@@ -188,3 +188,5 @@ har_system/videos/
 *.mkv
 
 har_system/benchmarks/fps_results_interrupted.csv
+perf_log.csv
+

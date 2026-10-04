@@ -2,7 +2,7 @@
 GestureRecognizer — pure-geometry thumbs-up detection on MediaPipe hand
 landmarks.
 
-A thumbs-up pose is confirmed on a hand when BOTH conditions hold on
+A thumbs-up gesture is confirmed on a hand when BOTH conditions hold on
 the same frame:
 
 1. **Thumb extended**: distance from thumb tip (P4) to wrist (P0) is
@@ -14,7 +14,7 @@ the same frame:
    the palm, not extended.
 
 As with :class:`perception.grasp_detector.GraspDetector`, no deep
-learning model is used — the pose is solved analytically on the
+learning model is used — the gesture is solved analytically on the
 existing 21 normalized landmarks. An 8-frame debounce (matching
 :class:`GraspDetector`'s ``debounce_frames`` pattern) suppresses
 single-frame noise before a gesture is confirmed.
@@ -41,7 +41,7 @@ class _HandState:
 # ── Main class ───────────────────────────────────────────────────────────
 
 class GestureRecognizer:
-    """Detects a thumbs-up pose via pure geometry on 21-point hand
+    """Detects a thumbs-up gesture via pure geometry on 21-point hand
     landmarks, using per-hand debounce to suppress transient noise.
 
     Parameters
@@ -51,7 +51,7 @@ class GestureRecognizer:
         thumb-tip→wrist distance must exceed thumb-MCP→wrist distance
         for the thumb to be considered extended.
     debounce_frames : int
-        Number of consecutive frames the pose must hold before a
+        Number of consecutive frames the gesture must hold before a
         gesture is confirmed.
     """
 
@@ -89,7 +89,7 @@ class GestureRecognizer:
         """Euclidean distance between two normalized landmark dicts."""
         return math.sqrt((a["x"] - b["x"]) ** 2 + (a["y"] - b["y"]) ** 2)
 
-    def _is_thumbs_up_pose(self, landmarks: list[dict]) -> bool:
+    def _is_thumbs_up_gesture(self, landmarks: list[dict]) -> bool:
         """Check the two geometric conditions for a single hand's 21
         landmarks on this frame (no debounce applied here)."""
         wrist = landmarks[self._WRIST]
@@ -136,7 +136,7 @@ class GestureRecognizer:
         -------
         bool
             ``True`` if ANY detected hand has sustained a thumbs-up
-            pose for ``debounce_frames`` consecutive frames.
+            gesture for ``debounce_frames`` consecutive frames.
         """
         confirmed = False
 
@@ -144,7 +144,7 @@ class GestureRecognizer:
             state = self._get_state(hand_idx)
             landmarks = hand_result.landmarks_list[hand_idx]["landmarks"]
 
-            if self._is_thumbs_up_pose(landmarks):
+            if self._is_thumbs_up_gesture(landmarks):
                 state.debounce_counter += 1
             else:
                 state.debounce_counter = 0
@@ -159,6 +159,9 @@ class GestureRecognizer:
                 del self._hand_states[hand_idx]
 
         return confirmed
+
+    # Alias for backward compatibility
+    _is_thumbs_up_pose = _is_thumbs_up_gesture
 
     def reset(self) -> None:
         """Clear all per-hand debounce state.
