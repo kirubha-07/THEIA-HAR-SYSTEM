@@ -142,3 +142,28 @@ def test_theia_debug_gating(monkeypatch, capsys):
     captured = capsys.readouterr()
     assert "[DEBUG][grasp]" in captured.out, f"Expected [DEBUG][grasp] in stdout with THEIA_DEBUG=1, got:\n{captured.out}"
     print("\n[PASS] THEIA_DEBUG gating test: [DEBUG] correctly suppressed when unset/0 and shown when 1.")
+
+
+def test_letterbox_frame():
+    """Verify letterbox_frame preserves aspect ratio and outputs target 640x480 padded with black."""
+    from capture.camera import letterbox_frame
+
+    # 1. 4K input (3840x2160, 16:9)
+    frame_4k = np.full((2160, 3840, 3), 128, dtype=np.uint8)
+    lb_4k = letterbox_frame(frame_4k, 640, 480)
+    assert lb_4k is not None
+    assert lb_4k.shape == (480, 640, 3)
+    # Check top/bottom letterbox black padding
+    assert np.all(lb_4k[0:40, :, :] == 0)
+    assert np.all(lb_4k[440:480, :, :] == 0)
+    # Check content preserved in middle
+    assert np.all(lb_4k[200:280, 100:500, :] == 128)
+
+    # 2. None input returns None
+    assert letterbox_frame(None, 640, 480) is None
+
+    # 3. Exact target resolution returns frame unchanged
+    frame_exact = np.full((480, 640, 3), 200, dtype=np.uint8)
+    lb_exact = letterbox_frame(frame_exact, 640, 480)
+    assert lb_exact.shape == (480, 640, 3)
+    assert np.all(lb_exact == 200)

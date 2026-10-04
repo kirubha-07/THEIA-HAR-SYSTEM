@@ -17,6 +17,31 @@ except ImportError:
     from har_system.paths import RECORDINGS_DIR
 
 
+def letterbox_frame(
+    frame: "cv2.typing.MatLike | None",
+    target_w: int = 640,
+    target_h: int = 480,
+) -> "cv2.typing.MatLike | None":
+    """Letterbox a frame to target_w x target_h using cv2.INTER_AREA, preserving aspect ratio and padding."""
+    if frame is None:
+        return None
+    h, w = frame.shape[:2]
+    if w == target_w and h == target_h:
+        return frame
+    scale = min(target_w / w, target_h / h)
+    new_w = max(1, min(target_w, int(round(w * scale))))
+    new_h = max(1, min(target_h, int(round(h * scale))))
+    resized = cv2.resize(frame, (new_w, new_h), interpolation=cv2.INTER_AREA)
+    pad_top = (target_h - new_h) // 2
+    pad_bottom = target_h - new_h - pad_top
+    pad_left = (target_w - new_w) // 2
+    pad_right = target_w - new_w - pad_left
+    return cv2.copyMakeBorder(
+        resized, pad_top, pad_bottom, pad_left, pad_right,
+        cv2.BORDER_CONSTANT, value=(0, 0, 0)
+    )
+
+
 class CameraCapture:
     """Manages a single webcam feed and an associated VideoWriter for archival."""
 
@@ -49,6 +74,8 @@ class CameraCapture:
         actual_index = cam_index
         if isinstance(cam_index, str) and cam_index.isdigit():
             actual_index = int(cam_index)
+
+        self._is_file = not isinstance(actual_index, int)
 
         if isinstance(actual_index, int) and sys.platform.startswith("win"):
             print(f"[CameraCapture] Initializing VideoCapture index={actual_index} with cv2.CAP_DSHOW backend...")
@@ -153,14 +180,19 @@ class CameraCapture:
         return self._recording_path
 
     def read(self) -> tuple[bool, "cv2.typing.MatLike | None"]:
-        """Grab the next frame from the webcam.
+        """Grab the next frame from the webcam or video file.
 
         Returns
         -------
         tuple[bool, MatLike | None]
             ``(success, frame)`` — mirrors :pymethod:`cv2.VideoCapture.read`.
+            For video file sources, letterboxes to (width, height) using
+            cv2.INTER_AREA with aspect ratio preserved and padded.
+            Webcam sources remain unaltered.
         """
         success, frame = self._cap.read()
+        if success and frame is not None and self._is_file:
+            frame = letterbox_frame(frame, self._width, self._height)
         return success, frame
 
     def write_frame(self, frame: "cv2.typing.MatLike") -> None:
