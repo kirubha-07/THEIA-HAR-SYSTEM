@@ -11,3 +11,4 @@ websockets
 PySide6
 bleak
 pyserial
+protobuf==4.25.9

@@ -24,6 +24,7 @@ import statistics
 import subprocess
 import sys
 import time
+from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
@@ -46,7 +47,11 @@ RESULTS_DIR = str(BENCHMARKS_DIR)
 RESULTS_CSV = str(BENCHMARKS_DIR / "fps_results.csv")
 
 _CSV_FIELDS = [
+    "started_at",
+    "rep",
     "clip",
+    "native_resolution",
+    "processed_resolution",
     "weights",
     "format",
     "imgsz",
@@ -57,7 +62,52 @@ _CSV_FIELDS = [
     "min_fps",
     "hostname",
     "cpu",
+    "power_plan",
+    "valid",
+    "invalid_reason",
 ]
+
+
+def letterbox_frame(
+    frame: "cv2.typing.MatLike | None",
+    target_w: int = 640,
+    target_h: int = 480,
+) -> "cv2.typing.MatLike | None":
+    """Letterbox a frame to target_w x target_h using cv2.INTER_AREA, preserving aspect ratio and padding."""
+    if frame is None:
+        return None
+    h, w = frame.shape[:2]
+    if w == target_w and h == target_h:
+        return frame
+    scale = min(target_w / w, target_h / h)
+    new_w = max(1, min(target_w, int(round(w * scale))))
+    new_h = max(1, min(target_h, int(round(h * scale))))
+    resized = cv2.resize(frame, (new_w, new_h), interpolation=cv2.INTER_AREA)
+    pad_top = (target_h - new_h) // 2
+    pad_bottom = target_h - new_h - pad_top
+    pad_left = (target_w - new_w) // 2
+    pad_right = target_w - new_w - pad_left
+    return cv2.copyMakeBorder(
+        resized, pad_top, pad_bottom, pad_left, pad_right,
+        cv2.BORDER_CONSTANT, value=(0, 0, 0)
+    )
+
+
+def get_power_plan() -> str:
+    """Return active Windows power plan name or 'Unknown'."""
+    if sys.platform.startswith("win"):
+        try:
+            out = subprocess.check_output(
+                ["powercfg", "/getactivescheme"],
+                text=True,
+                timeout=3,
+            ).strip()
+            if "(" in out and out.endswith(")"):
+                return out[out.rfind("(") + 1 : -1].strip()
+            return out
+        except Exception:
+            pass
+    return "Unknown"
 
 
 def get_cpu_info() -> str:
@@ -81,9 +131,11 @@ def run_benchmark_video(
     weights_path: Optional[str] = None,
     model_format: Optional[str] = None,
     imgsz: int = 320,
-    warmup: int = 30,
-    frames: Optional[int] = None,
+    warmup: int = 60,
+    frames: Optional[int] = 600,
     config_path: Optional[str] = None,
+    rep: int = 1,
+    power_plan: Optional[str] = None,
 ) -> dict:
     """Benchmark perception pipeline on a video clip.
 
@@ -112,6 +164,8 @@ def run_benchmark_video(
     if not os.path.isfile(video_path):
         raise FileNotFoundError(f"Video file not found: {video_path}")
 
+    started_at = datetime.now().isoformat()
+
     # Resolve default weights / format from config if not passed
     cfg = load_model_config()
     actual_format = (model_format or cfg.get("format", "pt")).lower()
@@ -131,12 +185,14 @@ def run_benchmark_video(
     video_w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     video_h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     video_fps = cap.get(cv2.CAP_PROP_FPS)
+    native_resolution = f"{video_w}x{video_h}"
+    processed_resolution = "640x480"
 
     clip_name = os.path.basename(video_path)
     weights_display = os.path.basename(weights_path)
 
-    print(f"\n[benchmark] Starting run: clip={clip_name} ({video_w}x{video_h} @ {video_fps:.1f}fps, {total_video_frames} total frames)")
-    print(f"[benchmark] Model: weights={weights_display}, format={actual_format.upper()}, imgsz={imgsz}")
+    print(f"\n[benchmark] Starting run: clip={clip_name} ({native_resolution} -> {processed_resolution} @ {video_fps:.1f}fps, {total_video_frames} total frames)")
+    print(f"[benchmark] Model: weights={weights_display}, format={actual_format.upper()}, imgsz={imgsz}, rep={rep}")
     print(f"[benchmark] Settings: warmup={warmup}, max_frames={frames or 'ALL'}")
 
     detector = YOLODetector(
@@ -167,6 +223,9 @@ def run_benchmark_video(
             ret, frame = cap.read()
             if not ret or frame is None:
                 break
+
+            # Letterbox every video frame to 640x480 (cv2.INTER_AREA, keep aspect, pad)
+            frame = letterbox_frame(frame, target_w=640, target_h=480)
 
             t0 = time.perf_counter()
 
@@ -205,9 +264,14 @@ def run_benchmark_video(
 
     sorted_samples = sorted(frame_fps_samples)
     p10_index = max(0, int(measured_frames * 0.10) - 1)
+    active_power_plan = power_plan or get_power_plan()
 
     result = {
+        "started_at": started_at,
+        "rep": rep,
         "clip": clip_name,
+        "native_resolution": native_resolution,
+        "processed_resolution": processed_resolution,
         "weights": weights_display,
         "format": actual_format,
         "imgsz": imgsz,
@@ -218,6 +282,9 @@ def run_benchmark_video(
         "min_fps": round(min(frame_fps_samples), 2),
         "hostname": socket.gethostname(),
         "cpu": get_cpu_info(),
+        "power_plan": active_power_plan,
+        "valid": True,
+        "invalid_reason": "",
     }
 
     print(f"[benchmark] Completed {processed_count} frames ({measured_frames} measured) in {total_pipeline_time:.2f}s:")
@@ -230,14 +297,15 @@ def run_benchmark_video(
 
 
 def append_result(result: dict, csv_path: str = RESULTS_CSV) -> None:
-    """Append one result row to the shared CSV, creating header if needed."""
+    """Append one result row to the shared CSV, creating header if needed, and flush immediately."""
     os.makedirs(os.path.dirname(os.path.abspath(csv_path)), exist_ok=True)
-    file_exists = os.path.isfile(csv_path)
+    file_exists = os.path.isfile(csv_path) and os.path.getsize(csv_path) > 0
     with open(csv_path, "a", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=_CSV_FIELDS)
         if not file_exists:
             writer.writeheader()
         writer.writerow(result)
+        f.flush()
 
 
 def main() -> None:
@@ -261,12 +329,20 @@ def main() -> None:
         help="Image size for YOLO inference (default: 320).",
     )
     parser.add_argument(
-        "--warmup", type=int, default=30,
-        help="Warmup frames excluded from statistics (default: 30).",
+        "--warmup", type=int, default=60,
+        help="Warmup frames excluded from statistics (default: 60).",
     )
     parser.add_argument(
-        "--frames", type=int, default=None,
-        help="Total frames to process from the clip (default: the whole clip).",
+        "--frames", type=int, default=600,
+        help="Total frames to process from the clip (default: 600).",
+    )
+    parser.add_argument(
+        "--rep", type=int, default=1,
+        help="Repetition index (default: 1).",
+    )
+    parser.add_argument(
+        "--power-plan", type=str, default=None,
+        help="Power plan name to record (default: active scheme).",
     )
     parser.add_argument(
         "--csv", type=str, default=RESULTS_CSV,
@@ -285,6 +361,8 @@ def main() -> None:
         imgsz=args.imgsz,
         warmup=args.warmup,
         frames=args.frames,
+        rep=args.rep,
+        power_plan=args.power_plan,
     )
     append_result(result, csv_path=args.csv)
     print(f"\n[benchmark] Appended result to {args.csv}")

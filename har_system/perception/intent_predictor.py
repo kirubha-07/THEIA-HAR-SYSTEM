@@ -11,12 +11,9 @@ hand's motion has been consistently aimed at one object for several
 consecutive frames, that object becomes the "predicted target" for
 this hand.
 
-Origin point is the wrist (landmark P0) rather than the shoulder — this
-project only runs ``mediapipe.solutions.hands``, not ``solutions.pose``,
-so shoulder position isn't available without adding a whole separate
-pose-tracking stage. The spec treats shoulder as an optional upgrade
-("or shoulder, if available"); wrist is the explicitly-permitted
-fallback and is what's used here.
+Origin point is the wrist (landmark P0) rather than the shoulder — the
+pipeline runs MediaPipe Hands only; wrist is the explicitly-permitted
+tracking reference and is what is used here.
 
 **Strictly additive / advisory only**: this module never blocks,
 delays, or overrides :class:`perception.grasp_detector.GraspDetector`'s

@@ -28,6 +28,46 @@ except ImportError:
     from har_system.paths import LOGS_DIR
 
 
+import hashlib
+from pathlib import Path
+
+
+def format_weights_identifier(weights_path: str | None) -> str | None:
+    """Format weights as repo-relative path plus first 12 chars of SHA-256, never absolute."""
+    if not weights_path:
+        return None
+    try:
+        from paths import BASE_DIR
+    except ImportError:
+        from har_system.paths import BASE_DIR
+    repo_root = BASE_DIR.parent
+
+    # If already formatted as "path:hash12", preserve it
+    if ":" in str(weights_path) and not os.path.exists(str(weights_path)):
+        parts = str(weights_path).split(":", 1)
+        if len(parts[1]) == 12:
+            return str(weights_path)
+
+    p = Path(weights_path)
+    if not p.is_absolute():
+        p = (BASE_DIR / p).resolve()
+
+    sha12 = ""
+    if p.exists() and p.is_file():
+        h = hashlib.sha256()
+        with open(p, "rb") as f:
+            for chunk in iter(lambda: f.read(65536), b""):
+                h.update(chunk)
+        sha12 = h.hexdigest()[:12]
+
+    try:
+        rel = p.relative_to(repo_root).as_posix()
+    except Exception:
+        rel = p.name
+
+    return f"{rel}:{sha12}" if sha12 else rel
+
+
 class SessionLogger:
     """Structured JSONL session logger.
 
@@ -70,7 +110,7 @@ class SessionLogger:
                 from perception.detector import load_model_config
                 cfg = load_model_config()
                 start_event.update({
-                    "weights": cfg.get("weights"),
+                    "weights": format_weights_identifier(cfg.get("weights")),
                     "classes": {0: "yellow_box", 1: "red_box", 2: "tray"} if not cfg.get("is_stock") else None,
                     "imgsz": cfg.get("imgsz"),
                     "format": cfg.get("format"),
@@ -79,7 +119,7 @@ class SessionLogger:
                 pass
         else:
             start_event.update({
-                "weights": model_info.get("weights"),
+                "weights": format_weights_identifier(model_info.get("weights")),
                 "classes": model_info.get("classes"),
                 "imgsz": model_info.get("imgsz"),
                 "format": model_info.get("format"),

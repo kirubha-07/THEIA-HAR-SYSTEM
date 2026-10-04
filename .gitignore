@@ -179,3 +179,14 @@ har_system/logs/*.jsonl
 har_system/models/*.data
 /bug1_step_advance_proof.png
 /real_app_verified.png
+
+# Video recordings & test clips (large files / PII)
+videos/
+har_system/videos/
+*.mp4
+*.mov
+*.mkv
+
+har_system/benchmarks/fps_results_interrupted.csv
+perf_log.csv
+
