@@ -11,6 +11,25 @@ from pathlib import Path
 # Anchored to the har_system directory
 BASE_DIR = Path(__file__).resolve().parent
 
+import os
+
+env_video_dir = os.environ.get("THEIA_VIDEO_DIR")
+if env_video_dir:
+    VIDEOS_DIR = Path(env_video_dir).resolve()
+else:
+    root_videos = BASE_DIR.parent / "videos"
+    har_videos = BASE_DIR / "videos"
+    root_exists = root_videos.is_dir()
+    har_exists = har_videos.is_dir()
+    if root_exists and har_exists:
+        raise RuntimeError("STOP: Both <repo root>/videos and har_system/videos exist. Please resolve ambiguity.")
+    elif root_exists:
+        VIDEOS_DIR = root_videos
+    elif har_exists:
+        VIDEOS_DIR = har_videos
+    else:
+        VIDEOS_DIR = root_videos
+
 LOGS_DIR = BASE_DIR / "logs"
 RECORDINGS_DIR = BASE_DIR / "recordings"
 PROFILES_PATH = BASE_DIR / "profiles.json"

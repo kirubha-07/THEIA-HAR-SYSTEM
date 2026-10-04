@@ -468,7 +468,7 @@ class PipelineWorker(QThread):
                             last_fsm_colour = (0, 255, 0)
                             self._last_flagged_event = None
 
-                            if getattr(ev, 'step_id', 1) == 1 and os.getenv("TEST_VIDEO_PATH"):
+                            if getattr(ev, 'step_id', 1) == 1 and "session_20260914_154712" in os.getenv("TEST_VIDEO_PATH", ""):
                                 print("[test] Fast forwarding 14 minutes to reach step 2!")
                                 self.camera._cap.set(cv2.CAP_PROP_POS_MSEC, 14.5 * 60 * 1000)
 
