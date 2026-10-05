@@ -1,34 +1,25 @@
 {
   "screenshot_1_dual_mode_verification": {
     "clip": "v9.mp4",
-    "replay_time": "35.67s",
-    "frame": 1057,
-    "cusum_points": 500,
-    "total_grasps": 4,
+    "replay_time": "35.64s",
+    "frame": 1056,
+    "cusum_points": 352,
+    "total_grasps": 2,
+    "log_file": "C:\\Users\\Kirubhakaran\\Downloads\\SIH-main\\har_system\\logs\\session_20261005_114731.jsonl",
+    "log_grasp_count": 2,
+    "log_step_result_count": 2,
+    "onscreen_total_grasps": 2,
+    "onscreen_verdict_rows": 2,
     "table_rows": [
       {
-        "time": "11:11:04",
+        "time": "11:48:13",
         "event": "STEP_COMPLETE",
         "step": "Grasp red module",
         "verdict": "CORRECT",
         "conf": "0.56"
       },
       {
-        "time": "11:11:04",
-        "event": "STEP_COMPLETE",
-        "step": "Grasp red module",
-        "verdict": "CORRECT",
-        "conf": "0.56"
-      },
-      {
-        "time": "11:11:11",
-        "event": "SKIP_DETECTED",
-        "step": "Grasp yellow module",
-        "verdict": "ANOMALY",
-        "conf": "0.83"
-      },
-      {
-        "time": "11:11:11",
+        "time": "11:48:21",
         "event": "SKIP_DETECTED",
         "step": "Grasp yellow module",
         "verdict": "ANOMALY",

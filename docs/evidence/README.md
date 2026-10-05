@@ -16,15 +16,20 @@ This directory contains visual and flight-log evidence generated from the THEIA 
 - **Screenshot (`dual_mode_verification_page.png`)**:
   - Captured directly from the active `MainWindow` GUI running at 1920x1080 resolution on Page "2. VERIFICATION DUAL-MODE".
   - The feed is a replay of a recorded clip through the live GUI, not a webcam run.
-  - Clip: `v9.mp4`, Replay Time: `35.67s` (frame 1057).
+  - Clip: `v9.mp4`, Replay Time: `35.64s` (frame 1056).
+  - Retaken after eliminating duplicate signal wiring on the Verification page (and across all other GUI pages), enforcing single-path event dispatch via `MainWindow`.
   - Thresholds in force at capture time: default calibration thresholds (`pinch_threshold: 0.07`, `power_grip_proximity_threshold: 0.15`, `min_conf: 0.50`), with persistent calibration profiles (`profiles.json`) moved aside.
+  - Count consistency verified: On-screen counts exactly match the session flight log:
+    - Session log `GRASP` count: 2 | On-screen `TOTAL GRASPS`: 2
+    - Session log `STEP_RESULT` count: 2 | On-screen Verdict Rows: 2 (1 `CORRECT` / `STEP_COMPLETE`, 1 `ANOMALY` / `SKIP_DETECTED`)
+  - Sequence Verdict table height expanded to 240px to comfortably fit at least 6 rows without scrolling.
   - User-visible label fixes applied:
     - `har_system/gui/pages/page_verification.py`: TOTAL GRASPS tile subtitle updated from `"Dual-path verified"` to `"Grasp Path events"`.
     - `har_system/gui/pages/page_verification.py`: Card header renamed from `"CUSUM Passive Drift Telemetry"` to `"Passive Path: CUSUM Drift Telemetry"` (preserving `"Grasp Path Detail"`).
   - Telemetry features demonstrated:
-    - Passive Path chart contains 500 drift data points (exceeding the 300 points threshold).
+    - Passive Path chart contains 352 drift data points (exceeding the 300 points threshold).
     - Grasp Path Detail displays a populated session grip distribution and recent-grasp confidence trend.
-    - Sequence Verdict History table clearly displays both `CORRECT` (`STEP_COMPLETE`) and `ANOMALY` (`SKIP_DETECTED`) verdict rows.
+    - Sequence Verdict History table clearly displays both `CORRECT` and `ANOMALY` verdict rows.
 
 - **Screenshot (`passive_path_no_hand.png`)**:
   - Captured directly from the active `MainWindow` GUI running at 1920x1080 resolution on Page "1. LIVE OPERATIONS".
