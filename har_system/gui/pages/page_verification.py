@@ -62,7 +62,7 @@ class VerificationDeepDivePage(BaseSubscriberPage):
         metrics_row.setSpacing(10)
 
         tile1, self.cusum_stat_lbl, self.cusum_sub_lbl = create_metric_tile("CUSUM Sn DRIFT", "0.00", "Threshold: 5.0 | Slack: 0.05", _CLR_ACCENT)
-        tile2, self.grasps_stat_lbl, self.grasps_sub_lbl = create_metric_tile("TOTAL GRASPS", "0", "Dual-path verified", _CLR_SUCCESS)
+        tile2, self.grasps_stat_lbl, self.grasps_sub_lbl = create_metric_tile("TOTAL GRASPS", "0", "Grasp Path events", _CLR_SUCCESS)
         tile3, self.avg_conf_lbl, self.avg_conf_sub_lbl = create_metric_tile("AVG CONFIDENCE", "--%", "Primary YOLO detector", _CLR_TEXT)
         tile4, self.queue_depth_lbl, self.queue_depth_sub_lbl = create_metric_tile("UPLINK QUEUE", "0", "Tiered Ground Buffer", _CLR_MUTED)
 
@@ -81,7 +81,7 @@ class VerificationDeepDivePage(BaseSubscriberPage):
         left_col.setSpacing(12)
 
         # 1. Full-size CUSUM Chart Card
-        c_card, c_layout = create_card("CUSUM Passive Drift Telemetry", "Statistical Process Control Window (500 pts)")
+        c_card, c_layout = create_card("Passive Path: CUSUM Drift Telemetry", "Statistical Process Control Window (500 pts)")
         self.cusum_chart = QChart()
         self.cusum_chart.setBackgroundVisible(False)
         self.cusum_chart.layout().setContentsMargins(0, 0, 0, 0)
