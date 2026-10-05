@@ -179,10 +179,6 @@ class ExperimentsLogsPage(BaseSubscriberPage):
 
     def subscribe(self, worker) -> None:
         self._worker = worker
-        worker.fsm_event.connect(self.handle_fsm_event)
-        worker.grasp_detected.connect(self.handle_grasp)
-        if hasattr(worker, 'calibration_state_changed'):
-            worker.calibration_state_changed.connect(self.handle_calibration_updated)
         if hasattr(worker, 'summary_exported'):
             worker.summary_exported.connect(self.on_summary_exported)
 

@@ -206,11 +206,49 @@ def main():
         pix.save(out_c_path)
         print(f"  [SAVED] {out_c_path} ({pix.width()}x{pix.height()})")
 
+        # Audit Session Log Counts vs On-Screen Counts
+        log_file = worker.logger.filepath
+        log_grasps = 0
+        log_step_results = 0
+        try:
+            with open(log_file, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    rec = json.loads(line)
+                    ev_type = rec.get("event")
+                    if ev_type == "GRASP":
+                        log_grasps += 1
+                    elif ev_type == "STEP_RESULT":
+                        log_step_results += 1
+        except Exception as e:
+            print(f"  [ERROR] Reading session log {log_file}: {e}")
+
+        print(f"\n  +--------------------------------------------------------------------------------+")
+        print(f"  | COUNT COMPARISON: SESSION LOG vs ON-SCREEN VERIFICATION PAGE                   |")
+        print(f"  +---------------------------+-------------------+-----------------+--------------+")
+        print(f"  | Metric                    | Session Log Count | On-Screen Count | Match?       |")
+        print(f"  +---------------------------+-------------------+-----------------+--------------+")
+        grasp_match = "YES (EXACT)" if log_grasps == tot_grasps else "MISMATCH"
+        verdict_match = "YES (EXACT)" if log_step_results == len(table_rows) else "MISMATCH"
+        print(f"  | GRASP / TOTAL GRASPS      | {log_grasps:<17} | {tot_grasps:<15} | {grasp_match:<12} |")
+        print(f"  | STEP_RESULT / VERDICT ROWS| {log_step_results:<17} | {len(table_rows):<15} | {verdict_match:<12} |")
+        print(f"  +---------------------------+-------------------+-----------------+--------------+\n")
+
+        assert log_grasps == tot_grasps, f"Session log GRASPs ({log_grasps}) != on-screen total grasps ({tot_grasps})"
+        assert log_step_results == len(table_rows), f"Session log STEP_RESULTs ({log_step_results}) != on-screen verdict rows ({len(table_rows)})"
+
         proof_c_data["clip"] = "v9.mp4"
         proof_c_data["replay_time"] = f"{rep_time:.2f}s"
         proof_c_data["frame"] = frame_counter
         proof_c_data["cusum_points"] = cusum_pts
         proof_c_data["total_grasps"] = tot_grasps
+        proof_c_data["log_file"] = str(log_file)
+        proof_c_data["log_grasp_count"] = log_grasps
+        proof_c_data["log_step_result_count"] = log_step_results
+        proof_c_data["onscreen_total_grasps"] = tot_grasps
+        proof_c_data["onscreen_verdict_rows"] = len(table_rows)
         proof_c_data["table_rows"] = table_rows
 
         screenshot_c_done = True

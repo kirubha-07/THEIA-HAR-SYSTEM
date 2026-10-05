@@ -205,8 +205,7 @@ class CrewHealthPage(BaseSubscriberPage):
     # ── SUBSCRIBER SIGNAL BINDING ─────────────────────────────────────────
 
     def subscribe(self, worker) -> None:
-        if hasattr(worker, 'vitals_updated'):
-            worker.vitals_updated.connect(self.update_vitals)
+        pass
 
     # ── SLOTS ─────────────────────────────────────────────────────────────
 

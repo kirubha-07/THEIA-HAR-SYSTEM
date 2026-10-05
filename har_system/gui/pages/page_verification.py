@@ -155,7 +155,7 @@ class VerificationDeepDivePage(BaseSubscriberPage):
         self.verdict_table.setColumnWidth(1, 140)
         self.verdict_table.setColumnWidth(2, 160)
         self.verdict_table.setColumnWidth(3, 110)
-        self.verdict_table.setFixedHeight(170)
+        self.verdict_table.setFixedHeight(240)
         v_layout.addWidget(self.verdict_table)
         left_col.addWidget(v_card)
 
@@ -297,9 +297,6 @@ class VerificationDeepDivePage(BaseSubscriberPage):
     # ── SUBSCRIBER SIGNAL BINDING ─────────────────────────────────────────
 
     def subscribe(self, worker) -> None:
-        worker.passive_monitor_updated.connect(self.update_cusum)
-        worker.fsm_event.connect(self.handle_fsm_event)
-        worker.grasp_detected.connect(self.handle_grasp)
         if hasattr(worker, 'uplink_updated'):
             worker.uplink_updated.connect(self.update_uplink)
 

@@ -286,7 +286,7 @@ class MainWindow(QMainWindow):
 
     def _on_fsm_event_global(self, ev: FSMEvent) -> None:
         """Global alert strip update from FSM events."""
-        if self._worker:
+        if self._worker and hasattr(self._worker, 'fsm') and self._worker.fsm is not None:
             if self._worker.fsm.status == FSMStatus.COMPLETE:
                 self.global_alert_strip.update_step(self._total_steps, self._total_steps, "All steps complete", "Experiment complete.")
             else:

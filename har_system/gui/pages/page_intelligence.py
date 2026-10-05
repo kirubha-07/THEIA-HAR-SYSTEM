@@ -286,8 +286,6 @@ class IntelligenceDeepDivePage(BaseSubscriberPage):
             alpha = self._calibration.ema_alpha
             blend = self._calibration.blend_weight
             self.cal_status_sub.setText(f"EMA Alpha: {alpha:.2f} (Blend: {blend:.2f}) | Target: Hand Kinematics")
-        worker.calibration_state_changed.connect(self.update_calibration_state)
-        worker.intent_predicted.connect(self.handle_intent_predicted)
 
     # ── SLOTS ─────────────────────────────────────────────────────────────
 
