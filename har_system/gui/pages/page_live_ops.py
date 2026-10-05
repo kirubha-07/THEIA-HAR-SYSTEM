@@ -306,7 +306,7 @@ class LiveOperationsPage(BaseSubscriberPage):
         layout.addWidget(splitter)
 
     def _build_card_1_verification(self, parent_layout: QVBoxLayout) -> None:
-        card, layout = create_card("Verification", "Dual Confirmation Pathway")
+        card, layout = create_card("Verification", "Dual-Mode Monitoring: Grasp Path + Passive Path")
 
         top_row = QHBoxLayout()
         top_row.setSpacing(10)
